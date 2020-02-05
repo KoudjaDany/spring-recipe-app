@@ -3,6 +3,7 @@ package com.ddf.training.springrecipeapp.domain;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.StringJoiner;
 
 @Entity
 public class Category {
@@ -37,5 +38,14 @@ public class Category {
 
     public void setRecipes(Set<Recipe> recipes) {
         this.recipes = recipes;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", Category.class.getSimpleName() + "[", "]")
+                .add("id=" + id)
+                .add("categoryName='" + categoryName + "'")
+                .add("recipes=" + recipes)
+                .toString();
     }
 }
