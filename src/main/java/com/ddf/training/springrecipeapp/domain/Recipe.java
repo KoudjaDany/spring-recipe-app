@@ -1,5 +1,7 @@
 package com.ddf.training.springrecipeapp.domain;
 
+import com.ddf.training.springrecipeapp.enums.Difficulty;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,8 +19,9 @@ public class Recipe {
     private String source;
     private String url;
     private String direction;
-    //TODO
-    //private Difficulty difficulty;
+
+    @Enumerated(EnumType.STRING)
+    private Difficulty difficulty;
 
     @Lob
     private Byte[] image;
@@ -91,6 +94,14 @@ public class Recipe {
 
     public void setDirection(String direction) {
         this.direction = direction;
+    }
+
+    public Difficulty getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
     }
 
     public Byte[] getImage() {
