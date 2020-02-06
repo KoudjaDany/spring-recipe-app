@@ -18,6 +18,7 @@ public class Recipe {
     private Integer servings;
     private String source;
     private String url;
+    @Lob
     private String direction;
 
     @Enumerated(EnumType.STRING)
