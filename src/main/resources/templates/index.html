@@ -9,5 +9,18 @@
     <p>
         This is my first recipe. I'll cook you Water fufu.
     </p>
+    <main>
+        <h2>List of recipes</h2>
+            <div th:each="recipe: ${recipes}">
+                <img th:src="@{/images/Guacamole.jpg}"/>
+                <a th:href="@{/details/{id}(id=${recipe.id})}" th:text="${recipe.description}"></a>
+                <p>
+                    <span> Prep Time:</span><span th:text="${recipe.prepTime}+' minutes'"></span>
+                    <span> Cook Time:</span><span th:text="${recipe.cookTime}+' minutes'"></span>
+                    <span> Yield:</span><span th:text="'Serves '+ ${recipe.servings}"></span>
+                </p>
+            </div>
+
+    </main>
 </body>
 </html>

@@ -27,15 +27,16 @@ public class IndexController {
         System.out.println(categoryRepository.findByCategoryName("American"));
         System.out.println(unitOfMeasureRepository.findByName("kg"));
         model.addAttribute("recipes", recipeService.listAll());
+        System.out.println("recipeService = " + recipeService.listAll());
         return "index";
     }
 
     @RequestMapping({"/details/{id}"})
-    public String getDetailPage(Model model, @PathVariable String id){
+    public String getDetailPage(Model model, @PathVariable Long id){
         System.out.println("Some message to say... kljfs");
         System.out.println(categoryRepository.findByCategoryName("American"));
         System.out.println(unitOfMeasureRepository.findByName("kg"));
-        model.addAttribute("recipes", recipeService.listAll());
+        model.addAttribute("recipe", recipeService.getRecipe(id));
         return "recipe-detail";
     }
 }

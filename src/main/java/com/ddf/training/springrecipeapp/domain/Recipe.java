@@ -3,8 +3,10 @@ package com.ddf.training.springrecipeapp.domain;
 import com.ddf.training.springrecipeapp.enums.Difficulty;
 
 import javax.persistence.*;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.StringJoiner;
 
 @Entity
 public class Recipe {
@@ -141,5 +143,23 @@ public class Recipe {
 
     public void setCategories(Set<Category> categories) {
         this.categories = categories;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", Recipe.class.getSimpleName() + "[", "]")
+                .add("id=" + id)
+                .add("description='" + description + "'")
+                .add("prepTime=" + prepTime)
+                .add("cookTime=" + cookTime)
+                .add("servings=" + servings)
+                .add("source='" + source + "'")
+                .add("url='" + url + "'")
+                .add("difficulty=" + difficulty)
+                .add("image=" + Arrays.toString(image))
+                .add("notes=" + notes)
+                .add("ingredients=" + ingredients)
+                .add("categories=" + categories)
+                .toString();
     }
 }

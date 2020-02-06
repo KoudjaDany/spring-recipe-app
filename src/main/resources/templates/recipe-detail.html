@@ -1,10 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="${recipe.description}">Recipe details</title>
 </head>
 <body>
+        <main>
+            <h2 th:text="${recipe.description}"></h2>
+            <img th:src="@{images/Guacamole.jpg}">
+            <img th:src="@{images/GrilledChickenTacos.jpg}">
+            <p th:text="${recipe.notes.recipeNotes}"></p>
+            <div>
+                <span> Prep Time:</span><span th:text="${recipe.prepTime}+' minutes'"></span>
+                <span> Cook Time:</span><span th:text="${recipe.cookTime}+' minutes'"></span>
+                <span> Yield:</span><span th:text="'Serves '+ ${recipe.servings}"></span>
+            </div>
+            <h3>INGREDIENTS</h3>
+            <ul>
+                <li th:each="ingredient: ${recipe.ingredients}">
+                    <span th:text="${ingredient.amount}">1</span> <span th:text="${ingredient.uom.name}">unité</span><span th:text="${ingredient.description}"> d'ingredient</span>
+                </li>
+            </ul>
+
+            <h3>METHOD</h3>
+            <p th:text="${recipe.direction}"> Procedure </p>
+
+            <p>
+                From <span th:text="${recipe.source}">Source</span> - <a th:href="@{${recipe.url}}" th:text="${recipe.url}">Url</a>
+            </p>
+        </main>
 
 </body>
 </html>

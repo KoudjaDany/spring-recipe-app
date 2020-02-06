@@ -2,6 +2,7 @@ package com.ddf.training.springrecipeapp.domain;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.StringJoiner;
 
 @Entity
 public class Ingredient {
@@ -56,5 +57,15 @@ public class Ingredient {
 
     public void setUom(UnitOfMeasure uom) {
         this.uom = uom;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", Ingredient.class.getSimpleName() + "[", "]")
+                .add("id=" + id)
+                .add("description='" + description + "'")
+                .add("amount=" + amount)
+                .add("uom=" + uom)
+                .toString();
     }
 }
