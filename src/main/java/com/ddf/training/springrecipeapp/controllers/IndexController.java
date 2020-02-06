@@ -2,7 +2,7 @@ package com.ddf.training.springrecipeapp.controllers;
 
 import com.ddf.training.springrecipeapp.repositories.CategoryRepository;
 import com.ddf.training.springrecipeapp.repositories.UnitOfMeasureRepository;
-import com.ddf.training.springrecipeapp.services.RecipeService;
+import com.ddf.training.springrecipeapp.services.RecipeServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,9 +13,9 @@ public class IndexController {
 
     private CategoryRepository categoryRepository;
     private UnitOfMeasureRepository unitOfMeasureRepository;
-    private RecipeService recipeService;
+    private RecipeServiceImpl recipeService;
 
-    public IndexController(CategoryRepository categoryRepository, UnitOfMeasureRepository unitOfMeasureRepository, RecipeService recipeService) {
+    public IndexController(CategoryRepository categoryRepository, UnitOfMeasureRepository unitOfMeasureRepository, RecipeServiceImpl recipeService) {
         this.categoryRepository = categoryRepository;
         this.unitOfMeasureRepository = unitOfMeasureRepository;
         this.recipeService = recipeService;

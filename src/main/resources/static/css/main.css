@@ -1,0 +1,16 @@
+
+main{
+    width: 70%;
+    border: solid 2px dimgray;
+    background: burlywood;
+    font-family: "Cambria Math", serif;
+    padding: 20px;
+    margin: auto;
+}
+
+img{
+    display: inline-block;
+    width: 200px;
+    height: auto;
+    border: dimgray solid 4px;
+}

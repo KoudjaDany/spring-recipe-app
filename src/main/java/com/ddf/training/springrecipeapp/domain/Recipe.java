@@ -29,6 +29,8 @@ public class Recipe {
     @Lob
     private Byte[] image;
 
+    private String imageUrl;
+
     @OneToOne(cascade = CascadeType.ALL)
     private Notes notes;
 
@@ -143,6 +145,14 @@ public class Recipe {
 
     public void setCategories(Set<Category> categories) {
         this.categories = categories;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     @Override

@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
     <title th:text="Home">Recipe Home</title>
 </head>
 <body>
@@ -12,7 +13,8 @@
     <main>
         <h2>List of recipes</h2>
             <div th:each="recipe: ${recipes}">
-                <img th:src="@{/images/Guacamole.jpg}"/>
+                <img th:src="@{${recipe.imageUrl}}"/>
+<!--                <img th:src="@{/images/Guacamole.jpg}"/>-->
                 <a th:href="@{/details/{id}(id=${recipe.id})}" th:text="${recipe.description}"></a>
                 <p>
                     <span> Prep Time:</span><span th:text="${recipe.prepTime}+' minutes'"></span>

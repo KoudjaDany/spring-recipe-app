@@ -7,28 +7,28 @@ import com.ddf.training.springrecipeapp.enums.Difficulty;
 import com.ddf.training.springrecipeapp.repositories.CategoryRepository;
 import com.ddf.training.springrecipeapp.repositories.RecipeRepository;
 import com.ddf.training.springrecipeapp.repositories.UnitOfMeasureRepository;
-import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
 
 @Component
-public class Bootstrap implements CommandLineRunner {
+public class RecipeBootsrap implements ApplicationListener<ContextRefreshedEvent> {
 
     private RecipeRepository recipeRepository;
     private UnitOfMeasureRepository unitOfMeasureRepository;
     private CategoryRepository categoryRepository;
 
-    public Bootstrap(RecipeRepository recipeRepository, UnitOfMeasureRepository unitOfMeasureRepository, CategoryRepository categoryRepository) {
+    public RecipeBootsrap(RecipeRepository recipeRepository, UnitOfMeasureRepository unitOfMeasureRepository, CategoryRepository categoryRepository) {
         this.recipeRepository = recipeRepository;
         this.unitOfMeasureRepository = unitOfMeasureRepository;
         this.categoryRepository = categoryRepository;
     }
 
     @Override
-    public void run(String... args) {
-
+    public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         loadPerfectGuacamole();
         loadSpicyGrilledChikenTacos();
     }

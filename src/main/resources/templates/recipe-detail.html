@@ -2,13 +2,15 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
     <title th:text="${recipe.description}">Recipe details</title>
 </head>
 <body>
         <main>
             <h2 th:text="${recipe.description}"></h2>
-            <img th:src="@{images/Guacamole.jpg}">
-            <img th:src="@{images/GrilledChickenTacos.jpg}">
+            <img th:src="@{${recipe.imageUrl}}">
+<!--            <img th:src="@{/images/Guacamole.jpg}">-->
+<!--            <img th:src="@{/images/GrilledChickenTacos.jpg}">-->
             <p th:text="${recipe.notes.recipeNotes}"></p>
             <div>
                 <span> Prep Time:</span><span th:text="${recipe.prepTime}+' minutes'"></span>
