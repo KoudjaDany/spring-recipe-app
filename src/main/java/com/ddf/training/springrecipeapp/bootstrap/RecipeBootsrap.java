@@ -7,13 +7,16 @@ import com.ddf.training.springrecipeapp.enums.Difficulty;
 import com.ddf.training.springrecipeapp.repositories.CategoryRepository;
 import com.ddf.training.springrecipeapp.repositories.RecipeRepository;
 import com.ddf.training.springrecipeapp.repositories.UnitOfMeasureRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
 
+@Slf4j
 @Component
 public class RecipeBootsrap implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -28,6 +31,7 @@ public class RecipeBootsrap implements ApplicationListener<ContextRefreshedEvent
     }
 
     @Override
+    @Transactional
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         loadPerfectGuacamole();
         loadSpicyGrilledChikenTacos();
@@ -116,6 +120,7 @@ public class RecipeBootsrap implements ApplicationListener<ContextRefreshedEvent
                 "<li>5 Assemble the tacos: Slice the chicken into strips. On each tortilla, place a small handful of arugula. Top with chicken slices, sliced avocado, radishes, tomatoes, and onion slices. Drizzle with the thinned sour cream. Serve with lime wedges. </li></ol>");
 
         recipeRepository.save(spicyGrilledChickenTacos);
+        //log.debug("Spicy Grilled Chicken Tacos recipe : ", spicyGrilledChickenTacos);
     }
 
     private void loadPerfectGuacamole() {
@@ -218,5 +223,6 @@ public class RecipeBootsrap implements ApplicationListener<ContextRefreshedEvent
                 " \n");
 
         recipeRepository.save(perfectGuacamole);
+        //log.debug("Perfect Guacamole recipe : ", perfectGuacamole);
     }
 }

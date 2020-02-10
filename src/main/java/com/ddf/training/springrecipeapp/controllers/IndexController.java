@@ -3,11 +3,13 @@ package com.ddf.training.springrecipeapp.controllers;
 import com.ddf.training.springrecipeapp.repositories.CategoryRepository;
 import com.ddf.training.springrecipeapp.repositories.UnitOfMeasureRepository;
 import com.ddf.training.springrecipeapp.services.RecipeServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+@Slf4j
 @Controller
 public class IndexController {
 
@@ -23,11 +25,11 @@ public class IndexController {
 
     @RequestMapping({"", "/", "/index", "/index.html", "/index.php"})
     public String getIndexPage(Model model){
-        System.out.println("Some message to say... kljfs");
-        System.out.println(categoryRepository.findByCategoryName("American"));
-        System.out.println(unitOfMeasureRepository.findByName("kg"));
+        log.debug("Some message to say... kljfs");
+        log.debug("", categoryRepository.findByCategoryName("American"));
+        log.debug("",unitOfMeasureRepository.findByName("kg"));
         model.addAttribute("recipes", recipeService.listAll());
-        System.out.println("recipeService = " + recipeService.listAll());
+        log.debug("recipeService = " + recipeService.listAll());
         return "index";
     }
 

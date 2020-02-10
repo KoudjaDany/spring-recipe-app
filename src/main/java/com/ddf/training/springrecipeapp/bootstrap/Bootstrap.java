@@ -7,12 +7,15 @@ import com.ddf.training.springrecipeapp.enums.Difficulty;
 import com.ddf.training.springrecipeapp.repositories.CategoryRepository;
 import com.ddf.training.springrecipeapp.repositories.RecipeRepository;
 import com.ddf.training.springrecipeapp.repositories.UnitOfMeasureRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
 
+@Slf4j
 @Component
 public class Bootstrap implements CommandLineRunner {
 
@@ -27,10 +30,11 @@ public class Bootstrap implements CommandLineRunner {
     }
 
     @Override
+    @Transactional
     public void run(String... args) {
-
         loadPerfectGuacamole();
         loadSpicyGrilledChikenTacos();
+        log.debug("Loading Bootstrap data ...");
     }
 
     private void loadSpicyGrilledChikenTacos(){
