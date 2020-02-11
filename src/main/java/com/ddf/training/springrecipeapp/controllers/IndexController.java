@@ -1,8 +1,7 @@
 package com.ddf.training.springrecipeapp.controllers;
 
-import com.ddf.training.springrecipeapp.repositories.CategoryRepository;
-import com.ddf.training.springrecipeapp.repositories.UnitOfMeasureRepository;
-import com.ddf.training.springrecipeapp.services.RecipeServiceImpl;
+import com.ddf.training.springrecipeapp.domain.Recipe;
+import com.ddf.training.springrecipeapp.services.RecipeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,21 +12,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class IndexController {
 
-    private CategoryRepository categoryRepository;
-    private UnitOfMeasureRepository unitOfMeasureRepository;
-    private RecipeServiceImpl recipeService;
+    private RecipeService recipeService;
 
-    public IndexController(CategoryRepository categoryRepository, UnitOfMeasureRepository unitOfMeasureRepository, RecipeServiceImpl recipeService) {
-        this.categoryRepository = categoryRepository;
-        this.unitOfMeasureRepository = unitOfMeasureRepository;
+    public IndexController(RecipeService recipeService) {
         this.recipeService = recipeService;
     }
 
     @RequestMapping({"", "/", "/index", "/index.html", "/index.php"})
     public String getIndexPage(Model model){
         log.debug("Some message to say... kljfs");
-        log.debug("", categoryRepository.findByCategoryName("American"));
-        log.debug("",unitOfMeasureRepository.findByName("kg"));
         model.addAttribute("recipes", recipeService.listAll());
         log.debug("recipeService = " + recipeService.listAll());
         return "index";
@@ -36,9 +29,14 @@ public class IndexController {
     @RequestMapping({"/details/{id}"})
     public String getDetailPage(Model model, @PathVariable Long id){
         System.out.println("Some message to say... kljfs");
-        System.out.println(categoryRepository.findByCategoryName("American"));
-        System.out.println(unitOfMeasureRepository.findByName("kg"));
-        model.addAttribute("recipe", recipeService.getRecipe(id));
-        return "recipe-detail";
+        if (id != null){
+            Recipe recipe = recipeService.getRecipe(id);
+            if (recipe == null){
+                return "error-page";
+            }
+            model.addAttribute("recipe", recipe);
+            return "recipe-detail";
+        }
+        return "index";
     }
 }
