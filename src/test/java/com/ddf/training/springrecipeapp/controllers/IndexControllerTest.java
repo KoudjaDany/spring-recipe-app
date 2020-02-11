@@ -39,7 +39,9 @@ public class IndexControllerTest {
         //Test that the returned page is index
         assertEquals("index", indexController.getIndexPage(model));
 
-        verify(model, only()).addAttribute("recipes", recipeService.listAll());
+        verify(recipeService, atLeast(1)).listAll();
+        verify(model, only()).addAttribute(eq("recipes"), anySet());
+
     }
 
     @Test
@@ -58,6 +60,7 @@ public class IndexControllerTest {
         assertEquals("error-page", indexController.getDetailPage(model, 0L));
 
         //Verifications
-        verify(model, only()).addAttribute("recipe", recipeService.getRecipe(1L));
+        verify(recipeService, atLeast(1)).getRecipe(anyLong());
+        verify(model, only()).addAttribute(eq("recipe"), any());
     }
 }
