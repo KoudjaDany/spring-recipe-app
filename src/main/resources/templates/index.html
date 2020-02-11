@@ -14,40 +14,52 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="container-fluid">
-        <h2>List of recipes</h2>
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-                <div class="panel pane  "></div>
+    <header>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">
+                        <img alt="Brand" src="...">
+                    </a>
+                </div>
             </div>
-        </div>
+        </nav>
+    </header>
+    <main>
+        <div class="container-fluid">
 
-    </div>
-    <h1>My Recepices dkfj df!</h1>
+            <div class="row">
+                <div class="col-md-8 col-md-offset-1">
+                    <h1>List of Recipes</h1>
+                    <div th:each="recipe: ${recipes}" class="media">
+                        <div class="media-left media-middle">
+                            <a th:href="@{/details/{id}(id=${recipe.id})}">
+                                <img th:src="@{${recipe.imageUrl}}"/>
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a th:href="@{/details/{id}(id=${recipe.id})}">
+                                <h4 class="media-heading" th:text="${recipe.description}"></h4>
+                            </a>
+                            <i th:text="${recipe.notes.recipeNotes}" class="text-justify"></i>
+                            <p class="bottom-properties">
+                                <span> Prep Time:</span><span th:text="${recipe.prepTime}+' minutes'"></span>
+                                <span> Cook Time:</span><span th:text="${recipe.cookTime}+' minutes'"></span>
+                                <span> Yield:</span><span th:text="'Serves '+ ${recipe.servings}"></span>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+
+ <!--   <h1>My Recepices dkfj df!</h1>
     <p>
         This is my first recipe. I'll cook you Water fufu.
-    </p>
-    <main>
-
-            <div th:each="recipe: ${recipes}" class="media">
-                <div class="media-left media-middle">
-                    <a th:href="@{/details/{id}(id=${recipe.id})}">
-                        <img th:src="@{${recipe.imageUrl}}"/>
-                    </a>
-                </div>
-                <div class="media-body">
-                    <a th:href="@{/details/{id}(id=${recipe.id})}">
-                        <h4 class="media-heading" th:text="${recipe.description}"></h4>
-                    </a>
-                    <p>
-                        <span> Prep Time:</span><span th:text="${recipe.prepTime}+' minutes'"></span>
-                        <span> Cook Time:</span><span th:text="${recipe.cookTime}+' minutes'"></span>
-                        <span> Yield:</span><span th:text="'Serves '+ ${recipe.servings}"></span>
-                    </p>
-                </div>
-
-            </div>
-
-    </main>
+    </p>-->
 </body>
 </html>

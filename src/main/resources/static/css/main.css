@@ -1,16 +1,24 @@
 
+/*main{*/
+/*    width: 70%;*/
+/*    border: solid 2px dimgray;*/
+/*    background: burlywood;*/
+/*    font-family: "Cambria Math", serif;*/
+/*    padding: 20px;*/
+/*    margin: auto;*/
+/*}*/
 main{
-    width: 70%;
-    border: solid 2px dimgray;
-    background: burlywood;
-    font-family: "Cambria Math", serif;
-    padding: 20px;
-    margin: auto;
+    margin-top: 100px;
 }
-
 img{
     display: inline-block;
     width: 200px;
     height: auto;
     border: dimgray solid 4px;
+}
+
+.bottom-properties{
+    font-weight: bold;
+    position: relative;
+    bottom: 0;
 }
