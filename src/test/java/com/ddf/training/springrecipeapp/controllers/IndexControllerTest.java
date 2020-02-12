@@ -4,6 +4,7 @@ import com.ddf.training.springrecipeapp.domain.Recipe;
 import com.ddf.training.springrecipeapp.services.RecipeService;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.ui.Model;
@@ -33,15 +34,25 @@ public class IndexControllerTest {
 
     @Test
     public void getIndexPage() {
+
+        //given
         Set<Recipe> recipes = new HashSet<>();
+        recipes.add(new Recipe());
+        Recipe recipe = new Recipe();
+        recipe.setId(2L);
+        recipes.add(recipe);
         when(recipeService.listAll()).thenReturn(recipes);
+        ArgumentCaptor<Set<Recipe>> argumentCaptor = ArgumentCaptor.forClass(Set.class);
 
-        //Test that the returned page is index
-        assertEquals("index", indexController.getIndexPage(model));
+        //When
+        String viewName = indexController.getIndexPage(model);
 
+        //Then
+        assertEquals("index", viewName);
         verify(recipeService, atLeast(1)).listAll();
-        verify(model, only()).addAttribute(eq("recipes"), anySet());
-
+        verify(model, only()).addAttribute(eq("recipes"), argumentCaptor.capture());
+        Set<Recipe> setInController = argumentCaptor.getValue();
+        assertEquals(2, setInController.size());
     }
 
     @Test
