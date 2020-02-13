@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class CategoryRepositoryTest {
+public class CategoryRepositoryIT {
 
     @Autowired
     CategoryRepository categoryRepository;
