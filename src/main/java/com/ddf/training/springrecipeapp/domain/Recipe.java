@@ -15,16 +15,16 @@ public class Recipe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String description;
-    private Integer prepTime;
-    private Integer cookTime;
-    private Integer servings;
+    private Integer prepTime = 20;
+    private Integer cookTime = 10;
+    private Integer servings = 3;
     private String source;
-    private String url;
+    private String url = "/images/marecette.jpg";
     @Lob
     private String direction;
 
     @Enumerated(EnumType.STRING)
-    private Difficulty difficulty;
+    private Difficulty difficulty = Difficulty.EASY;
 
     @Lob
     private Byte[] image;
