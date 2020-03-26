@@ -2,17 +2,23 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/css/main.css}">
     <title th:text="${recipe.description}">Recipe details</title>
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"
+          th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}">
     <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"
+          th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap-theme.min.css}">
 
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <script src="webjars/jquery/3.2.1/jquery.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"
+            th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}">
+    </script>
 </head>
 <body>
 <header>
@@ -20,6 +26,7 @@
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">
+                    <!-- FIXME FIND AND COMPLETE BRAND WITH AN IMAGE CONCERNING RECIPES-->
                     <img alt="Brand" src="...">
                 </a>
             </div>
@@ -28,33 +35,103 @@
 </header>
 <main>
     <div class="container-fluid">
-
-        <div class="row">
-            <div class="col-md-8 col-md-offset-1">
-
-            <h2 th:text="${recipe.description}"></h2>
-            <img th:src="@{${recipe.imageUrl}}">
-<!--            <img th:src="@{/images/Guacamole.jpg}">-->
-<!--            <img th:src="@{/images/GrilledChickenTacos.jpg}">-->
-            <p th:text="${recipe.notes.recipeNotes}"></p>
-            <div>
-                <span> Prep Time:</span><span th:text="${recipe.prepTime}+' minutes'"></span>
-                <span> Cook Time:</span><span th:text="${recipe.cookTime}+' minutes'"></span>
-                <span> Yield:</span><span th:text="'Serves '+ ${recipe.servings}"></span>
+        <ol class="breadcrumb">
+            <li><a href="#">Recipes List</a></li>
+            <li><a th:href="@{/details/{id}(id=${recipe.id})}" th:text="${recipe.description}">Recipe Details</a></li>
+        </ol>
+        <h2 class="col-md-offset-1" th:text="${recipe.description}"></h2>
+        <div class="col-md-10 col-md-offset-1">
+            <div class="row">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Recipe Description</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-md-5">
+                            <a href="#" class="thumbnail">
+                                <img th:src="@{${recipe.imageUrl}}" alt="Photo plat">
+                            </a>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="row">
+                                <div class="row">
+                                    <div class="col-md-3 desc-label">
+                                        <h5><span class="glyphicon glyphicon-signal"></span> Difficulty:</h5>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h5 th:text="${recipe.difficulty}">MODERATE</h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3 desc-label">
+                                        <h5><span class="glyphicon glyphicon-user"></span> Yield:</h5>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h5 th:text="'Serves '+ ${recipe.servings}">1 </h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3 desc-label">
+                                        <h5><span class="glyphicon glyphicon-time"></span> Prep Time:</h5>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h5 th:text="${recipe.prepTime}+' minutes'">0 minute</h5>
+                                    </div>
+                                    <div class="col-md-3 desc-label">
+                                        <h5><span class="glyphicon glyphicon-time"></span> Cook Time:</h5>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h5 th:text="${recipe.cookTime}+' minutes'">0 minute</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <h3>INGREDIENTS</h3>
-            <ul>
-                <li th:each="ingredient: ${recipe.ingredients}">
-                    <span th:text="${ingredient.amount}">1</span> <span th:text="${ingredient.uom.name}">unité</span><span th:text="${ingredient.description}"> d'ingredient</span>
-                </li>
-            </ul>
+            <div class="row">
+                <div class="col-md-5 no-padding-left">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><span class="glyphicon glyphicon-list"></span> INGREDIENTS</h3>
+                        </div>
+                        <div class="panel-body">
+                            <ul>
+                                <li th:each="ingredient: ${recipe.ingredients}">
+                                    <span th:text="${ingredient.amount}">1</span> <span
+                                        th:text="${ingredient.uom.name}">unité</span><span
+                                        th:text="${ingredient.description}"> d'ingredient</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
 
-            <h3>METHOD</h3>
-            <p th:text="${recipe.direction}"> Procedure </p>
+                <div class="col-md-7 no-padding-right">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><span class="glyphicon glyphicon-tasks"></span> METHOD</h3>
+                        </div>
+                        <div class="panel-body">
+                            <p th:text="${recipe.direction}"> Procedure </p>
+                            <p>
+                                From <span th:text="${recipe.source}">Source</span> - <a th:href="@{${recipe.url}}"
+                                                                                         th:text="${recipe.url}">Url</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
 
-            <p>
-                From <span th:text="${recipe.source}">Source</span> - <a th:href="@{${recipe.url}}" th:text="${recipe.url}">Url</a>
-            </p>
+            </div>
+            <div class="row">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-pencil"></span> NOTES</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p th:text="${recipe.notes.recipeNotes}"></p>
+                    </div>
+                </div>
             </div>
         </div>
 
