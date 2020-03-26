@@ -36,7 +36,7 @@
 <main>
     <div class="container-fluid">
         <ol class="breadcrumb">
-            <li><a href="#">Recipes List</a></li>
+            <li><a th:href="@{/index}">Recipes List</a></li>
             <li><a th:href="@{/details/{id}(id=${recipe.id})}" th:text="${recipe.description}">Recipe Details</a></li>
         </ol>
         <h2 class="col-md-offset-1" th:text="${recipe.description}"></h2>

@@ -17,6 +17,10 @@ img{
     border: dimgray solid 4px;
 }
 
+.media img{
+    width: 200px;
+}
+
 .no-padding-left{
     padding-left: 0;
 }
@@ -37,4 +41,8 @@ img{
     font-weight: bold;
     position: relative;
     bottom: 0;
+}
+
+.bottom-properties span{
+    margin: 1em;
 }

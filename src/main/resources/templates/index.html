@@ -42,7 +42,7 @@
                 <div class="col-md-8 col-md-offset-1">
                     <h1>List of Recipes</h1>
                     <div th:each="recipe: ${recipes}" class="media">
-                        <div class="media-left media-middle">
+                        <div th:if="${recipe.id % 2 != 0}" class="media-left media-middle">
                             <a th:href="@{/details/{id}(id=${recipe.id})}">
                                 <img th:src="@{${recipe.imageUrl}}"/>
                             </a>
@@ -58,7 +58,11 @@
                                 <span> Yield:</span><span th:text="'Serves '+ ${recipe.servings}"></span>
                             </p>
                         </div>
-
+                        <div th:if="${recipe.id % 2 == 0}" class="media-right media-middle">
+                            <a th:href="@{/details/{id}(id=${recipe.id})}">
+                                <img th:src="@{${recipe.imageUrl}}"/>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
