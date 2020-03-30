@@ -75,23 +75,5 @@ public class IndexControllerTest {
         assertEquals(2, setInController.size());
     }
 
-    @Test
-    public void getDetailPage() {
-        Recipe recipe = new Recipe();
-        recipe.setId(1L);
-        when(recipeService.getRecipe(1L)).thenReturn(recipe);
 
-        //Test for getting an existing recipe
-        assertEquals("recipe-detail", indexController.getDetailPage(model, recipe.getId()));
-
-        //Test for asking for details without mention the id of the recipe to return. We stay on the index page
-        assertEquals("index", indexController.getDetailPage(model, null));
-
-        //Test for asking for a recipe which doesn't exist
-        assertEquals("error-page", indexController.getDetailPage(model, 0L));
-
-        //Verifications
-        verify(recipeService, atLeast(1)).getRecipe(anyLong());
-        verify(model, only()).addAttribute(eq("recipe"), any());
-    }
 }
