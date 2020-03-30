@@ -43,12 +43,12 @@
                     <h1>List of Recipes</h1>
                     <div th:each="recipe: ${recipes}" class="media">
                         <div th:if="${recipe.id % 2 != 0}" class="media-left media-middle">
-                            <a th:href="@{/details/{id}(id=${recipe.id})}">
+                            <a th:href="@{/recipe/details/{id}(id=${recipe.id})}">
                                 <img th:src="@{${recipe.imageUrl}}"/>
                             </a>
                         </div>
                         <div class="media-body">
-                            <a th:href="@{/details/{id}(id=${recipe.id})}">
+                            <a th:href="@{/recipe/details/{id}(id=${recipe.id})}">
                                 <h4 class="media-heading" th:text="${recipe.description}"></h4>
                             </a>
                             <i th:text="${recipe.notes.recipeNotes}" class="text-justify"></i>
@@ -59,7 +59,7 @@
                             </p>
                         </div>
                         <div th:if="${recipe.id % 2 == 0}" class="media-right media-middle">
-                            <a th:href="@{/details/{id}(id=${recipe.id})}">
+                            <a th:href="@{/recipe/details/{id}(id=${recipe.id})}">
                                 <img th:src="@{${recipe.imageUrl}}"/>
                             </a>
                         </div>
@@ -69,11 +69,5 @@
 
         </div>
     </main>
-
-
- <!--   <h1>My Recepices dkfj df!</h1>
-    <p>
-        This is my first recipe. I'll cook you Water fufu.
-    </p>-->
 </body>
 </html>

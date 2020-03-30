@@ -1,11 +1,9 @@
 package com.ddf.training.springrecipeapp.controllers;
 
-import com.ddf.training.springrecipeapp.domain.Recipe;
 import com.ddf.training.springrecipeapp.services.RecipeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Slf4j
@@ -23,20 +21,6 @@ public class IndexController {
         log.debug("Some message to say... kljfs");
         model.addAttribute("recipes", recipeService.listAll());
         log.debug("recipeService = " + recipeService.listAll());
-        return "index";
-    }
-
-    @RequestMapping({"/details/{id}"})
-    public String getDetailPage(Model model, @PathVariable Long id){
-        System.out.println("Some message to say... kljfs");
-        if (id != null){
-            Recipe recipe = recipeService.getRecipe(id);
-            if (recipe == null){
-                return "error-page";
-            }
-            model.addAttribute("recipe", recipe);
-            return "recipe-detail";
-        }
         return "index";
     }
 }

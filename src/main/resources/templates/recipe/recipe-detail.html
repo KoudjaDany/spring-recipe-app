@@ -12,7 +12,7 @@
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"
           th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap-theme.min.css}">
 
-    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/static/css/main.css}">
     <script src="webjars/jquery/3.2.1/jquery.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
@@ -37,7 +37,7 @@
     <div class="container-fluid">
         <ol class="breadcrumb">
             <li><a th:href="@{/index}">Recipes List</a></li>
-            <li><a th:href="@{/details/{id}(id=${recipe.id})}" th:text="${recipe.description}">Recipe Details</a></li>
+            <li><a th:href="@{/recipe/details/{id}(id=${recipe.id})}" th:text="${recipe.description}">Recipe Details</a></li>
         </ol>
         <h2 class="col-md-offset-1" th:text="${recipe.description}"></h2>
         <div class="col-md-10 col-md-offset-1">
