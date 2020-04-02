@@ -14,8 +14,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class RecipeControllerTest {
 
@@ -44,7 +43,8 @@ public class RecipeControllerTest {
 
         mockMvc.perform(get("/recipe/details/1"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("recipe-detail"));
+                .andExpect(view().name("recipe/recipe-detail"))
+                .andExpect(model().attributeExists("recipe"));
     }
 
     @Test

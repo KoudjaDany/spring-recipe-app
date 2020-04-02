@@ -37,8 +37,10 @@
     <div class="container-fluid">
         <ol class="breadcrumb">
             <li><a th:href="@{/index}">Recipes List</a></li>
-            <li><a th:href="@{/recipe/details/{id}(id=${recipe.id})}" th:text="${recipe.description}">Recipe Details</a></li>
+            <li><a th:href="@{/recipe/details/{id}(id=${recipe.id})}" th:text="${recipe.description}">Recipe Details</a>
+            </li>
         </ol>
+        <div class="row"></div>
         <h2 class="col-md-offset-1" th:text="${recipe.description}"></h2>
         <div class="col-md-10 col-md-offset-1">
             <div class="row">
@@ -55,35 +57,49 @@
                         <div class="col-md-7">
                             <div class="row">
                                 <div class="row">
-                                    <div class="col-md-3 desc-label">
-                                        <h5><span class="glyphicon glyphicon-signal"></span> Difficulty:</h5>
+                                    <div class="col-md-3">
+                                        <h5 class="desc-label"><span class="glyphicon glyphicon-signal"></span>
+                                            Difficulty:</h5>
                                     </div>
                                     <div class="col-md-3">
                                         <h5 th:text="${recipe.difficulty}">MODERATE</h5>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-3 desc-label">
-                                        <h5><span class="glyphicon glyphicon-user"></span> Yield:</h5>
+                                    <div class="col-md-3">
+                                        <h5 class="desc-label"><span class="glyphicon glyphicon-user"></span> Yield:
+                                        </h5>
                                     </div>
                                     <div class="col-md-3">
                                         <h5 th:text="'Serves '+ ${recipe.servings}">1 </h5>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-3 desc-label">
-                                        <h5><span class="glyphicon glyphicon-time"></span> Prep Time:</h5>
+                                    <div class="col-md-3 ">
+                                        <h5 class="desc-label"><span class="glyphicon glyphicon-time"></span> Prep Time:
+                                        </h5>
                                     </div>
                                     <div class="col-md-3">
                                         <h5 th:text="${recipe.prepTime}+' minutes'">0 minute</h5>
                                     </div>
                                     <div class="col-md-3 desc-label">
-                                        <h5><span class="glyphicon glyphicon-time"></span> Cook Time:</h5>
+                                        <h5 class="desc-label"><span class="glyphicon glyphicon-time"></span> Cook Time:
+                                        </h5>
                                     </div>
                                     <div class="col-md-3">
                                         <h5 th:text="${recipe.cookTime}+' minutes'">0 minute</h5>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1 desc-label">
+                                <h5> Categories:</h5>
+                            </div>
+                            <div class="col-md-5 category-list">
+                                    <h5 href="#" th:each="category: ${recipe.categories}">
+                                        <span class="badge" th:text="${category.categoryName}">Category Name</span>
+                                    </h5>
                             </div>
                         </div>
                     </div>
@@ -99,7 +115,7 @@
                             <ul>
                                 <li th:each="ingredient: ${recipe.ingredients}">
                                     <span th:text="${ingredient.amount}">1</span> <span
-                                        th:text="${ingredient.uom.name}">unité</span><span
+                                        th:text="${ingredient.uom.name}">unité</span> <span
                                         th:text="${ingredient.description}"> d'ingredient</span>
                                 </li>
                             </ul>

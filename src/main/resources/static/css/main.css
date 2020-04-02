@@ -37,6 +37,11 @@ img{
     font-weight: bolder;
 }
 
+category-list{
+    line-height: 100%;
+}
+
+
 .bottom-properties{
     font-weight: bold;
     position: relative;
