@@ -1,17 +1,19 @@
 package com.ddf.training.springrecipeapp.commands;
 
-import com.ddf.training.springrecipeapp.domain.Recipe;
-import com.ddf.training.springrecipeapp.domain.UnitOfMeasure;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class IngredientCommand {
     private Long id;
     private String description;
     private BigDecimal amount;
-    private UnitOfMeasure uom;
-    private Recipe recipe;
+    private UnitOfMeasureCommand uom;
+    private RecipeCommand recipe;
 
 }

@@ -1,8 +1,5 @@
 package com.ddf.training.springrecipeapp.commands;
 
-import com.ddf.training.springrecipeapp.domain.Category;
-import com.ddf.training.springrecipeapp.domain.Ingredient;
-import com.ddf.training.springrecipeapp.domain.Notes;
 import com.ddf.training.springrecipeapp.enums.Difficulty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,7 +23,7 @@ public class RecipeCommand {
     private Difficulty difficulty;
     private Byte[] image;
     private String imageUrl;
-    private Notes notes;
-    private Set<Ingredient> ingredients = new HashSet<>();
-    private Set<Category> categories = new HashSet<>();
+    private NotesCommand notes;
+    private Set<IngredientCommand> ingredients = new HashSet<>();
+    private Set<CategoryCommand> categories = new HashSet<>();
 }
