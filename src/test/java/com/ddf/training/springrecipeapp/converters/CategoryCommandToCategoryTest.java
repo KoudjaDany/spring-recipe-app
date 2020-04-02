@@ -14,7 +14,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 public class CategoryCommandToCategoryTest {
 
@@ -32,7 +32,8 @@ public class CategoryCommandToCategoryTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        converter = new CategoryCommandToCategory(recipeConverter);
+        //converter = new CategoryCommandToCategory(recipeConverter);
+        converter = new CategoryCommandToCategory();
     }
 
 
@@ -79,6 +80,6 @@ public class CategoryCommandToCategoryTest {
         assertEquals(Optional.ofNullable(ID), java.util.Optional.ofNullable(category.getId()));
         assertEquals(NAME, category.getCategoryName());
         assertEquals(Optional.ofNullable(2), java.util.Optional.of(category.getRecipes().size()));
-        verify(recipeConverter, atLeast(2)).convert(any());
+        //verify(recipeConverter, atLeast(2)).convert(any());
     }
 }

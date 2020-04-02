@@ -10,11 +10,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class NotesCommandToNotes implements Converter<NotesCommand, Notes> {
 
-    private final RecipeCommandToRecipe recipeConverter;
-
-    public NotesCommandToNotes(RecipeCommandToRecipe recipeConverter) {
-        this.recipeConverter = recipeConverter;
-    }
+//    private final RecipeCommandToRecipe recipeConverter;
+//
+//    public NotesCommandToNotes(RecipeCommandToRecipe recipeConverter) {
+//        this.recipeConverter = recipeConverter;
+//    }
 
     @Synchronized
     @Nullable
@@ -26,7 +26,7 @@ public class NotesCommandToNotes implements Converter<NotesCommand, Notes> {
         final Notes target = new Notes();
         target.setId(source.getId());
         target.setRecipeNotes(source.getRecipeNotes());
-        target.setRecipe(recipeConverter.convert(source.getRecipe()));
+        //target.setRecipe(recipeConverter.convert(source.getRecipe()));
 
         return target;
     }

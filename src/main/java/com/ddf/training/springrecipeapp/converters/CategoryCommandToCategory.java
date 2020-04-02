@@ -10,11 +10,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class CategoryCommandToCategory implements Converter<CategoryCommand, Category> {
 
-    private final RecipeCommandToRecipe recipeConverter;
+    //private final RecipeCommandToRecipe recipeConverter;
 
-    public CategoryCommandToCategory(RecipeCommandToRecipe recipeConverter) {
-        this.recipeConverter = recipeConverter;
-    }
+//    public CategoryCommandToCategory(RecipeCommandToRecipe recipeConverter) {
+//        this.recipeConverter = recipeConverter;
+//    }
 
     @Synchronized
     @Nullable
@@ -26,9 +26,9 @@ public class CategoryCommandToCategory implements Converter<CategoryCommand, Cat
         final Category target = new Category();
         target.setId(source.getId());
         target.setCategoryName(source.getCategoryName());
-        if (source.getRecipes() != null && !source.getRecipes().isEmpty()) {
-            source.getRecipes().forEach(recipeCommand -> target.getRecipes().add(recipeConverter.convert(recipeCommand)));
-        }
+//        if (source.getRecipes() != null && !source.getRecipes().isEmpty()) {
+//            source.getRecipes().forEach(recipeCommand -> target.getRecipes().add(recipeConverter.convert(recipeCommand)));
+//        }
         return target;
     }
 }

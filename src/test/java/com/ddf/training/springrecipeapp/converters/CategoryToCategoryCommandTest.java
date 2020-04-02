@@ -14,8 +14,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 public class CategoryToCategoryCommandTest {
 
@@ -34,7 +33,8 @@ public class CategoryToCategoryCommandTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        converter = new CategoryToCategoryCommand(recipeConverter);
+        //converter = new CategoryToCategoryCommand(recipeConverter);
+        converter = new CategoryToCategoryCommand();
     }
 
 
@@ -81,6 +81,6 @@ public class CategoryToCategoryCommandTest {
         assertEquals(Optional.ofNullable(ID), java.util.Optional.ofNullable(categoryCommand.getId()));
         assertEquals(NAME, categoryCommand.getCategoryName());
         assertEquals(Optional.ofNullable(2), java.util.Optional.of(categoryCommand.getRecipes().size()));
-        verify(recipeConverter, atLeast(2)).convert(any());
+        //verify(recipeConverter, atLeast(2)).convert(any());
     }
 }

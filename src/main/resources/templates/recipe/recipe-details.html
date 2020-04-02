@@ -129,7 +129,7 @@
                             <h3 class="panel-title"><span class="glyphicon glyphicon-tasks"></span> METHOD</h3>
                         </div>
                         <div class="panel-body">
-                            <p th:text="${recipe.direction}"> Procedure </p>
+                            <p th:text="${recipe.getDirections}"> Procedure </p>
                             <p>
                                 From <span th:text="${recipe.source}">Source</span> - <a th:href="@{${recipe.url}}"
                                                                                          th:text="${recipe.url}">Url</a>

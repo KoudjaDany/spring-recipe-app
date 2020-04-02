@@ -1,10 +1,14 @@
 package com.ddf.training.springrecipeapp.services;
 
+import com.ddf.training.springrecipeapp.commands.RecipeCommand;
+import com.ddf.training.springrecipeapp.converters.RecipeCommandToRecipe;
+import com.ddf.training.springrecipeapp.converters.RecipeToRecipeCommand;
 import com.ddf.training.springrecipeapp.domain.Recipe;
 import com.ddf.training.springrecipeapp.repositories.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.text.SimpleDateFormat;
@@ -17,10 +21,14 @@ import java.util.Set;
 @Service
 public class RecipeServiceImpl implements RecipeService{
 
-    private RecipeRepository recipeRepository;
+    private final RecipeRepository recipeRepository;
+    private final RecipeToRecipeCommand recipeToRecipeCommand;
+    private final RecipeCommandToRecipe recipeCommandToRecipe;
 
-    public RecipeServiceImpl(RecipeRepository recipeRepository) {
+    public RecipeServiceImpl(RecipeRepository recipeRepository, RecipeToRecipeCommand recipeToRecipeCommand, RecipeCommandToRecipe recipeCommandToRecipe) {
         this.recipeRepository = recipeRepository;
+        this.recipeToRecipeCommand = recipeToRecipeCommand;
+        this.recipeCommandToRecipe = recipeCommandToRecipe;
     }
 
     public Set<Recipe> listAll(){
@@ -33,7 +41,16 @@ public class RecipeServiceImpl implements RecipeService{
     }
 
     public Recipe getRecipe(Long id){
-        return recipeRepository.findById(id).orElseThrow(()->new EntityNotFoundException("The recipe of id"+id+" doesn't exist."));
+        return recipeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("The recipe of id" + id + " doesn't exist."));
+    }
+
+    @Override
+    @Transactional
+    public RecipeCommand saveRecipeCommand(RecipeCommand recipeCommand) {
+        Recipe detachedRecipe = recipeCommandToRecipe.convert(recipeCommand);
+        Recipe recipe = recipeRepository.save(detachedRecipe);
+        log.debug("Saved RecipeId:" + recipe.getId());
+        return recipeToRecipeCommand.convert(recipe);
     }
 
 

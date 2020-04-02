@@ -25,7 +25,8 @@ public class NotesCommandToNotesTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        converter = new NotesCommandToNotes(recipeConverter);
+        //converter = new NotesCommandToNotes(recipeConverter);
+        converter = new NotesCommandToNotes();
     }
 
 
@@ -60,6 +61,6 @@ public class NotesCommandToNotesTest {
         assertNotNull(notes);
         assertEquals(java.util.Optional.of(LONG_VALUE), java.util.Optional.ofNullable(notes.getId()));
         assertEquals(NOTES, notes.getRecipeNotes());
-        assertEquals(java.util.Optional.of(LONG_VALUE), java.util.Optional.ofNullable(notes.getRecipe().getId()));
+        //assertEquals(java.util.Optional.of(LONG_VALUE), java.util.Optional.ofNullable(notes.getRecipe().getId()));
     }
 }
