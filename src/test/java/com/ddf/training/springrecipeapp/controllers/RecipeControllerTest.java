@@ -43,7 +43,7 @@ public class RecipeControllerTest {
 
         mockMvc.perform(get("/recipe/details/1"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("recipe/recipe-detail"))
+                .andExpect(view().name("recipe/recipe-details"))
                 .andExpect(model().attributeExists("recipe"));
     }
 
@@ -54,7 +54,7 @@ public class RecipeControllerTest {
         when(recipeService.getRecipe(1L)).thenReturn(recipe);
 
         //Test for getting an existing recipe
-        assertEquals("recipe-detail", recipeController.getDetailPage(model, recipe.getId()));
+        assertEquals("recipe/recipe-details", recipeController.getDetailPage(model, recipe.getId()));
 
         //Test for asking for details without mention the id of the recipe to return. We stay on the index page
         assertEquals("index", recipeController.getDetailPage(model, null));

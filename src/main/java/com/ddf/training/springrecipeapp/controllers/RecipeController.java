@@ -28,7 +28,7 @@ public class RecipeController {
                 return "error-page";
             }
             model.addAttribute("recipe", recipe);
-            return "recipe/recipe-detail";
+            return "recipe/recipe-details";
         }
         return "index";
     }
