@@ -7,8 +7,6 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
-import java.util.Objects;
-
 @Component
 public class RecipeToRecipeCommand implements Converter<Recipe, RecipeCommand> {
 
@@ -41,7 +39,7 @@ public class RecipeToRecipeCommand implements Converter<Recipe, RecipeCommand> {
         target.setSource(source.getSource());
         target.setImage(source.getImage());
         target.setUrl(source.getUrl());
-        target.setNotes(Objects.requireNonNull(notesConverter.convert(source.getNotes())));
+        target.setNotes(notesConverter.convert(source.getNotes()));
         if (source.getIngredients() != null && !source.getIngredients().isEmpty()) {
             source.getIngredients().forEach(ingredient -> target.getIngredients().add(ingredientConverter.convert(ingredient)));
         }
