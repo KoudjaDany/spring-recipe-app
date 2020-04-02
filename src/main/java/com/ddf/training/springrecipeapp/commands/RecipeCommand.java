@@ -19,7 +19,7 @@ public class RecipeCommand {
     private Integer servings;
     private String source;
     private String url;
-    private String direction;
+    private String directions;
     private Difficulty difficulty;
     private Byte[] image;
     private String imageUrl;

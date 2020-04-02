@@ -105,7 +105,7 @@ public class Bootstrap implements CommandLineRunner {
                 .addAll(Arrays.asList(chillPowder, oregano, cumin, sugar, chicken, salt, oliveOil));
 
 
-        spicyGrilledChickenTacos.setDirection("<ol><li>Prepare a gas or charcoal grill for medium-high, direct heat.</li>\n" +
+        spicyGrilledChickenTacos.setDirections("<ol><li>Prepare a gas or charcoal grill for medium-high, direct heat.</li>\n" +
                 "\n" +
                 "<li>2 Make the marinade and coat the chicken: In a large bowl, stir together the chili powder, oregano, cumin, sugar, salt, garlic and orange zest. Stir in the orange juice and olive oil to make a loose paste. Add the chicken to the bowl and toss to coat all over.\n" +
                 "\n" +
@@ -206,7 +206,7 @@ public class Bootstrap implements CommandLineRunner {
         perfectGuacamole.getIngredients()
                 .addAll(Arrays.asList(avocado, salt, onion, tomato, limeJuice, serrano, cilantro, blackPepper, radishes, tortillaChips));
 
-        perfectGuacamole.setDirection("<ol><li> Cut the avocado, remove flesh: Cut the avocados in half. Remove the pit. Score the inside of the avocado with a blunt knife and scoop out the flesh with a spoon. (See How to Cut and Peel an Avocado.) Place in a bowl.</li>\n" +
+        perfectGuacamole.setDirections("<ol><li> Cut the avocado, remove flesh: Cut the avocados in half. Remove the pit. Score the inside of the avocado with a blunt knife and scoop out the flesh with a spoon. (See How to Cut and Peel an Avocado.) Place in a bowl.</li>\n" +
                 "\n" +
                 "<li> Mash with a fork: Using a fork, roughly mash the avocado. (Don't overdo it! The guacamole should be a little chunky.)</li>\n" +
                 "\n" +

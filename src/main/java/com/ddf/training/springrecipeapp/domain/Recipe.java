@@ -21,7 +21,7 @@ public class Recipe {
     private String source;
     private String url = "/images/marecette.jpg";
     @Lob
-    private String direction;
+    private String directions;
 
     @Enumerated(EnumType.STRING)
     private Difficulty difficulty = Difficulty.EASY;
