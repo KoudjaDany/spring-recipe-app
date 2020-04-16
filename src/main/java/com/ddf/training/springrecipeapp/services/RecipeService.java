@@ -9,6 +9,7 @@ public interface RecipeService {
     Set<Recipe> listAll();
     Recipe getRecipe(Long id);
     RecipeCommand saveRecipeCommand(RecipeCommand recipeCommand);
-
     RecipeCommand findRecipeCommandById(Long id);
+
+    void deleteById(Long id);
 }

@@ -12,6 +12,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -51,5 +56,23 @@ public class RecipeServiceIT {
         assertEquals(DESCRIPTION, savedRecipeCommand.getDescription());
         assertEquals(testRecipe.getCategories().size(), savedRecipeCommand.getCategories().size());
         assertEquals(testRecipe.getIngredients().size(), savedRecipeCommand.getIngredients().size());
+    }
+
+    @Test
+    @Transactional
+    public void deleteById() {
+        //Given
+        Set<Recipe> recipes = new HashSet<>((Collection<? extends Recipe>) recipeRepository.findAll());
+        int length = recipes.size();
+        Recipe testRecipe = recipes.iterator().next();
+        long id = testRecipe.getId();
+
+        //When
+        recipeService.deleteById(id);
+
+        //Then
+        assertEquals(Optional.empty(), recipeRepository.findById(id));
+        Set<Recipe> recipes2 = new HashSet<>((Collection<? extends Recipe>) recipeRepository.findAll());
+        assertEquals(length - 1, recipes2.size());
     }
 }

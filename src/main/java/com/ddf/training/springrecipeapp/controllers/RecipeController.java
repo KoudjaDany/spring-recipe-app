@@ -7,10 +7,7 @@ import com.ddf.training.springrecipeapp.services.RecipeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Controller
@@ -51,11 +48,21 @@ public class RecipeController {
         return "recipe/recipe-form";
     }
 
+    @PutMapping
     @PostMapping
     @RequestMapping("/save")
-    public String saveRecipe(@ModelAttribute RecipeCommand recipeCommand, Model model) {
+    public String saveOrUpdateRecipe(@ModelAttribute RecipeCommand recipeCommand, Model model) {
         RecipeCommand savedRecipeCommand = recipeService.saveRecipeCommand(recipeCommand);
         model.addAttribute("categories", categoryService.findAll());
         return "redirect:/recipe/details/" + savedRecipeCommand.getId();
     }
+
+    @DeleteMapping
+    @RequestMapping("/delete/{id}")
+    public String deleteRecipe(@PathVariable Long id) {
+        recipeService.deleteById(id);
+        return "redirect:/index";
+    }
+
+
 }

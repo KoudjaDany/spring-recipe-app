@@ -59,6 +59,12 @@ public class RecipeServiceImpl implements RecipeService{
         return recipeToRecipeCommand.convert(getRecipe(id));
     }
 
+    @Override
+    @Transactional
+    public void deleteById(Long id) {
+        recipeRepository.deleteById(id);
+    }
+
 
     @Scheduled(cron = "0 * 15 * * ?")
     public void cronJobSch(){
