@@ -53,6 +53,12 @@ public class RecipeServiceImpl implements RecipeService{
         return recipeToRecipeCommand.convert(recipe);
     }
 
+    @Override
+    @Transactional
+    public RecipeCommand findRecipeCommandById(Long id) {
+        return recipeToRecipeCommand.convert(getRecipe(id));
+    }
+
 
     @Scheduled(cron = "0 * 15 * * ?")
     public void cronJobSch(){

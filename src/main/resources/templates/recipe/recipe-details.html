@@ -25,7 +25,7 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" th:href="@{/index}">
                     <!-- FIXME FIND AND COMPLETE BRAND WITH AN IMAGE CONCERNING RECIPES-->
                     <img alt="Brand" src="...">
                 </a>
@@ -146,6 +146,19 @@
                     </div>
                     <div class="panel-body">
                         <p th:if="${recipe.notes != null}" th:text="${recipe.notes.recipeNotes}"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-pencil"></span> ACTIONS</h3>
+                    </div>
+                    <div class="panel-body">
+                        <a type="button" class="btn btn-warning" th:href="@{/recipe/update/{id}(id=${recipe.id})}">Update
+                            Recipe</a>
+                        <a type="button" class="btn btn-danger" th:href="@{/recipe/delete/{id}(id=${recipe.id})}">Delete
+                            Recipe</a>
                     </div>
                 </div>
             </div>

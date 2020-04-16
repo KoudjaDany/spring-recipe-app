@@ -51,3 +51,7 @@ category-list{
 .bottom-properties span{
     margin: 1em;
 }
+
+.breadcrumb {
+    margin-top: 80px !important;
+}

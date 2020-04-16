@@ -29,7 +29,7 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" th:href="@{/index}">
                     <!-- FIXME FIND AND COMPLETE BRAND WITH AN IMAGE CONCERNING RECIPES-->
                     <img alt="Brand" src="...">
                 </a>
@@ -65,11 +65,10 @@
                                         <label class="">Categories:</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <label>
+                                        <label th:each="category: ${categories}">
                                             <!--/*@thymesVar id="categories" type="java.util.Set<com.ddf.training.springrecipeapp.domain.Category>"*/-->
-                                            <input th:each="category: ${categories}" type="checkbox" th:value=""
-                                                   class="form-control col-md-3" th:text="${category.categoryName}">
-
+                                            <input type="checkbox" th:value="" class="form-control col-md-3">
+                                            <span th:text="${category.categoryName}">cat</span>
                                         </label>
                                     </div>
                                 </div>

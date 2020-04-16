@@ -93,4 +93,24 @@ public class RecipeControllerTest {
 
         verify(recipeService, only()).saveRecipeCommand(any());
     }
+
+    @Test
+    public void updateRecipe() throws Exception {
+        RecipeCommand recipeCommand = new RecipeCommand();
+        recipeCommand.setId(1L);
+        recipeCommand.setDescription("recipe description");
+
+        Recipe recipe = new Recipe();
+        recipe.setId(1L);
+
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(recipeController).build();
+        when(recipeService.findRecipeCommandById(anyLong())).thenReturn(recipeCommand);
+
+        mockMvc.perform(get("/recipe/update/1"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("recipe/recipe-form"))
+                .andExpect(model().attributeExists("recipe"));
+
+        verify(recipeService, only()).findRecipeCommandById(anyLong());
+    }
 }
