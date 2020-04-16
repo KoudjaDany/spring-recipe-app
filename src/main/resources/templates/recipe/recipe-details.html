@@ -129,7 +129,7 @@
                             <h3 class="panel-title"><span class="glyphicon glyphicon-tasks"></span> METHOD</h3>
                         </div>
                         <div class="panel-body">
-                            <p th:text="${recipe.getDirections}"> Procedure </p>
+                            <p th:if="${recipe.directions != null}" th:text="${recipe.directions}"> Procedure </p>
                             <p>
                                 From <span th:text="${recipe.source}">Source</span> - <a th:href="@{${recipe.url}}"
                                                                                          th:text="${recipe.url}">Url</a>
@@ -145,7 +145,7 @@
                         <h3 class="panel-title"><span class="glyphicon glyphicon-pencil"></span> NOTES</h3>
                     </div>
                     <div class="panel-body">
-                        <p th:text="${recipe.notes.recipeNotes}"></p>
+                        <p th:if="${recipe.notes != null}" th:text="${recipe.notes.recipeNotes}"></p>
                     </div>
                 </div>
             </div>

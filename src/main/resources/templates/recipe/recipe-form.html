@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head>
+        <meta charset="UTF-8">
+        <title th:text="${recipe.description}">Create Recipe</title>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+              integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+              crossorigin="anonymous"
+              th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+              integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+              crossorigin="anonymous"
+              th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap-theme.min.css}">
+
+        <link rel="stylesheet" th:href="@{/static/css/main.css}">
+        <script src="webjars/jquery/3.2.1/jquery.min.js"></script>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+                crossorigin="anonymous"
+                th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}">
+        </script>
+    </head>
+<body>
+<header>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">
+                    <!-- FIXME FIND AND COMPLETE BRAND WITH AN IMAGE CONCERNING RECIPES-->
+                    <img alt="Brand" src="...">
+                </a>
+            </div>
+        </div>
+    </nav>
+</header>
+<main>
+    <div class="container-fluid">
+        <ol class="breadcrumb">
+            <li><a th:href="@{/index}">Recipes List</a></li>
+            <li><a th:href="@{/recipe/details/{id}(id=${recipe.id})}" th:text="${recipe.description}">Recipe Details</a>
+            </li>
+        </ol>
+        <div class="row">
+            <div class="col-md-8">
+                <form th:action="@{/recipe/save}" th:object="${recipe}" method="post">
+                    <input type="hidden" th:field="*{id}">
+                    <div class="panel-group">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Recipe Information</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label class="">Recipe Description:</label>
+                                        <input type="text" class="form-control" th:field="*{description}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label class="">Categories:</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <label>
+                                            <!--/*@thymesVar id="categories" type="java.util.Set<com.ddf.training.springrecipeapp.domain.Category>"*/-->
+                                            <input th:each="category: ${categories}" type="checkbox" th:value=""
+                                                   class="form-control col-md-3" th:text="${category.categoryName}">
+
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label class="">Prep Time:</label>
+                                        <input type="number" class="form-control" th:field="*{prepTime}">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="">Cook Time:</label>
+                                        <input type="number" class="form-control" th:field="*{cookTime}">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="">Difficulty:</label>
+                                        <select class="form-control" th:field="*{difficulty}">
+                                            <option value="">Easy</option>
+                                            <option value="">Moderate</option>
+                                            <option value="">Hard</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label class="">Servings:</label>
+                                        <input type="number" class="form-control" th:field="*{servings}">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="">Source:</label>
+                                        <input type="text" class="form-control" th:field="*{source}">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="">URL:</label>
+                                        <input type="url" class="form-control" th:field="*{url}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="no-padding-left">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <h3 class="panel-title col-md-3"><span class="glyphicon glyphicon-list"></span>
+                                            INGREDIENTS</h3>
+                                        <button type="button" onclick="console.log('add ingredient')"
+                                                class="pull-right">Edit
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <ul>
+                                        <li th:each="ingredient: ${recipe.ingredients}">
+                                            <span th:text="${ingredient.amount}">1</span> <span
+                                                th:text="${ingredient.uom.name}">unité</span> <span
+                                                th:text="${ingredient.description}"> d'ingredient</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="no-padding-right">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><span class="glyphicon glyphicon-tasks"></span> METHOD</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <textarea class="form-control" placeholder="Enter directions here..." rows="10"
+                                              th:field="*{directions}"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><span class="glyphicon glyphicon-pencil"></span> NOTES</h3>
+                            </div>
+                            <div class="panel-body">
+                                <textarea class="form-control" placeholder="Enter your notes here..." rows="3"
+                                          th:field="*{notes.recipeNotes}"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary center-block"><span
+                            class="glyphicon glyphicon-save"></span> Save
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    </div>
+</main>
+</body>
+</html>

@@ -1,11 +1,14 @@
 package com.ddf.training.springrecipeapp.controllers;
 
+import com.ddf.training.springrecipeapp.commands.RecipeCommand;
 import com.ddf.training.springrecipeapp.domain.Recipe;
+import com.ddf.training.springrecipeapp.services.CategoryService;
 import com.ddf.training.springrecipeapp.services.RecipeService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
@@ -14,6 +17,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class RecipeControllerTest {
@@ -24,13 +28,16 @@ public class RecipeControllerTest {
     private RecipeService recipeService;
 
     @Mock
+    private CategoryService categoryService;
+
+    @Mock
     Model model;
 
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        recipeController = new RecipeController(recipeService);
+        recipeController = new RecipeController(recipeService, categoryService);
     }
 
     @Test
@@ -65,5 +72,25 @@ public class RecipeControllerTest {
         //Verifications
         verify(recipeService, atLeast(1)).getRecipe(anyLong());
         verify(model, only()).addAttribute(eq("recipe"), any());
+    }
+
+    @Test
+    public void saveRecipe() throws Exception {
+        RecipeCommand recipeCommand = new RecipeCommand();
+        recipeCommand.setId(1L);
+        recipeCommand.setDescription("recipe description");
+
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(recipeController).build();
+        when(recipeService.saveRecipeCommand(any())).thenReturn(recipeCommand);
+
+        mockMvc.perform(post("/recipe/save", recipeCommand)
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("id", "")
+                .param("description", "recipe description")
+        )
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/recipe/details/1"));
+
+        verify(recipeService, only()).saveRecipeCommand(any());
     }
 }

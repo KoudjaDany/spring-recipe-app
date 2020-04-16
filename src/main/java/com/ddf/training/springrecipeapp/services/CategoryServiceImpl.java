@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,7 +30,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Set<Category> findAll() {
-        return (Set<Category>) categoryRepository.findAll();
+        return new HashSet<>((Collection<? extends Category>) categoryRepository.findAll());
     }
 
     @Override
