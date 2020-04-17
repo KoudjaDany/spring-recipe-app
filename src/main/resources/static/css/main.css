@@ -7,8 +7,9 @@
 /*    padding: 20px;*/
 /*    margin: auto;*/
 /*}*/
+
 main{
-    margin-top: 120px;
+    margin-top: 80px;
 }
 img{
     display: inline-block;
@@ -37,7 +38,7 @@ img{
     font-weight: bolder;
 }
 
-category-list{
+.category-list {
     line-height: 100%;
 }
 
@@ -50,8 +51,4 @@ category-list{
 
 .bottom-properties span{
     margin: 1em;
-}
-
-.breadcrumb {
-    margin-top: 80px !important;
 }

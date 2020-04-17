@@ -1,5 +1,6 @@
 package com.ddf.training.springrecipeapp.controllers;
 
+import com.ddf.training.springrecipeapp.services.IngredientService;
 import com.ddf.training.springrecipeapp.services.RecipeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -14,9 +15,12 @@ public class IngredientController {
 
     private final RecipeService recipeService;
 
+    private final IngredientService ingredientService;
 
-    public IngredientController(RecipeService recipeService) {
+
+    public IngredientController(RecipeService recipeService, IngredientService ingredientService) {
         this.recipeService = recipeService;
+        this.ingredientService = ingredientService;
     }
 
     @RequestMapping({"/", ""})
@@ -27,7 +31,11 @@ public class IngredientController {
     }
 
     @RequestMapping("/details/{ingredientId}")
-    public String updateIngredient(@PathVariable Long recipeId, @PathVariable Long ingredientId, Model model) {
-        return "";
+    public String showIngredient(@PathVariable Long recipeId, @PathVariable Long ingredientId, Model model) {
+        model.addAttribute("ingredient", ingredientService.findRecipeIdAndIngredientById(recipeId, ingredientId));
+        model.addAttribute("recipe", recipeService.findRecipeCommandById(recipeId));
+        return "recipe/ingredients/show-ingredient";
     }
+
+
 }

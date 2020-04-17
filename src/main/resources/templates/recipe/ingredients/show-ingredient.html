@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <title th:text="${ingredient.description}">Ingredient details</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"
+          th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"
+          th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap-theme.min.css}">
+
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+
+    <script src="webjars/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"
+            th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}">
+    </script>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" th:href="@{/index}">
+                    <!-- FIXME FIND AND COMPLETE BRAND WITH AN IMAGE CONCERNING RECIPES-->
+                    <img alt="Brand" src="...">
+                </a>
+            </div>
+        </div>
+    </nav>
+</header>
+<main>
+    <div class="container-fluid">
+        <div class="row">
+            <ol class="breadcrumb">
+                <li><a th:href="@{/index}">Recipes List</a></li>
+                <li><a th:href="@{/recipe/details/{id}(id=${recipe.id})}" th:text="${recipe.description}">Recipe
+                    Details</a>
+                </li>
+                <li><a th:href="@{'/recipe/'+${recipe.id}+'/ingredients'}">Ingredients List</a>
+                </li>
+                <li><a th:href="@{'/recipe/'+${recipe.id}+'/ingredients/details/'+${ingredient.id}}"
+                       th:text="${ingredient.description}">Ingredient
+                    Details</a>
+                </li>
+            </ol>
+        </div>
+        <h2 class="col-md-offset-1" th:text="${ingredient.description}"></h2>
+        <div class="col-md-7">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Ingredient Description</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h5 class="desc-label"> Description: </h5>
+                        </div>
+                        <div class="col-md-9">
+                            <h5 th:text="${ingredient.description}">My precious ingredient </h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h5 class="desc-label"> Unit of Measure:</h5>
+                        </div>
+                        <div class="col-md-9">
+                            <h5 th:text="${ingredient.uom.name}">Spoon </h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h5 class="desc-label">Amount/Quantity: </h5>
+                        </div>
+                        <div class="col-md-9">
+                            <h5 th:text="${ingredient.amount}">1 </h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+</body>
+</html>
