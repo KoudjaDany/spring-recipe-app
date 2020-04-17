@@ -70,7 +70,7 @@
                                 <select class="form-control" name="uom.id">
                                     <option th:each="uom: ${uomList}"
                                             th:value="${uom.id}"
-                                            th:selected="${uom.name.equals(ingredient.uom.name)}"
+                                            th:selected="${uom.id.equals(ingredient.uom.id)}"
                                             th:text="${uom.name}">
                                         Uom
                                     </option>
