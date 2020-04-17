@@ -85,9 +85,11 @@
                                     <div class="form-group col-md-4">
                                         <label class="">Difficulty:</label>
                                         <select class="form-control" th:field="*{difficulty}">
-                                            <option value="">Easy</option>
-                                            <option value="">Moderate</option>
-                                            <option value="">Hard</option>
+                                            <option th:each="difficulty: ${difficulties}"
+                                                    th:value="${difficulty.name()}"
+                                                    th:text="${difficulty.name()}">
+                                                difficulty
+                                            </option>
                                         </select>
                                     </div>
                                 </div>

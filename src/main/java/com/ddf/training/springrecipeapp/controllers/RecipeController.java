@@ -2,6 +2,7 @@ package com.ddf.training.springrecipeapp.controllers;
 
 import com.ddf.training.springrecipeapp.commands.RecipeCommand;
 import com.ddf.training.springrecipeapp.domain.Recipe;
+import com.ddf.training.springrecipeapp.enums.Difficulty;
 import com.ddf.training.springrecipeapp.services.CategoryService;
 import com.ddf.training.springrecipeapp.services.RecipeService;
 import lombok.extern.slf4j.Slf4j;
@@ -39,12 +40,14 @@ public class RecipeController {
     @RequestMapping("/new")
     public String newRecipe(Model model) {
         model.addAttribute("recipe", new RecipeCommand());
+        model.addAttribute("difficulties", Difficulty.values());
         return "recipe/recipe-form";
     }
 
     @RequestMapping("/update/{id}")
     public String updateRecipe(Model model, @PathVariable Long id) {
         model.addAttribute("recipe", recipeService.findRecipeCommandById(id));
+        model.addAttribute("difficulties", Difficulty.values());
         return "recipe/recipe-form";
     }
 
