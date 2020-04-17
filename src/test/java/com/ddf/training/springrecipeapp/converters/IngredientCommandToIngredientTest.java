@@ -4,8 +4,11 @@ import com.ddf.training.springrecipeapp.commands.IngredientCommand;
 import com.ddf.training.springrecipeapp.commands.UnitOfMeasureCommand;
 import com.ddf.training.springrecipeapp.domain.Ingredient;
 import com.ddf.training.springrecipeapp.domain.Recipe;
+import com.ddf.training.springrecipeapp.repositories.RecipeRepository;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.math.BigDecimal;
 
@@ -21,9 +24,13 @@ public class IngredientCommandToIngredientTest {
 
     IngredientCommandToIngredient converter;
 
+    @Mock
+    private RecipeRepository recipeRepository;
+
     @Before
     public void setUp() throws Exception {
-        converter = new IngredientCommandToIngredient(new UnitOfMeasureCommandToUnitOfMeasure());
+        MockitoAnnotations.initMocks(this);
+        converter = new IngredientCommandToIngredient(new UnitOfMeasureCommandToUnitOfMeasure(), recipeRepository);
     }
 
     @Test

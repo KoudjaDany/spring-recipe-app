@@ -1,6 +1,7 @@
 package com.ddf.training.springrecipeapp.services;
 
 import com.ddf.training.springrecipeapp.commands.IngredientCommand;
+import com.ddf.training.springrecipeapp.converters.IngredientCommandToIngredient;
 import com.ddf.training.springrecipeapp.converters.IngredientToIngredientCommand;
 import com.ddf.training.springrecipeapp.domain.Ingredient;
 import com.ddf.training.springrecipeapp.repositories.IngredientRepository;
@@ -17,6 +18,7 @@ import static org.junit.Assert.assertEquals;
 @SpringBootTest
 public class IngredientServiceIT {
 
+    public static final String MY_INGREDIENT = "My Ingredient";
     IngredientService ingredientService;
 
     @Autowired
@@ -25,13 +27,16 @@ public class IngredientServiceIT {
     @Autowired
     IngredientToIngredientCommand ingredientToIngredientCommand;
 
+    @Autowired
+    private IngredientCommandToIngredient ingredientCommandToIngredient;
+
     @Before
     public void setUp() throws Exception {
-        ingredientService = new IngredientServiceImpl(ingredientRepository, ingredientToIngredientCommand);
+        ingredientService = new IngredientServiceImpl(ingredientRepository, ingredientToIngredientCommand, ingredientCommandToIngredient);
     }
 
     @Test
-    public void findIngredientById() {
+    public void findRecipeIdAndIngredientById() {
 
         //Given
         Ingredient ingredient = ingredientRepository.findAll().iterator().next();
@@ -47,5 +52,26 @@ public class IngredientServiceIT {
         assertEquals(result.getUom().getId(), ingredient.getUom().getId());
         assertEquals(result.getUom().getName(), ingredient.getUom().getName());
         assertEquals(result.getAmount(), ingredient.getAmount());
+    }
+
+
+    @Test
+    public void saveIngredientCommand() {
+        //Given
+        Ingredient ingredient = ingredientRepository.findAll().iterator().next();
+        IngredientCommand ingredientCommand = ingredientToIngredientCommand.convert(ingredient);
+        ingredientCommand.setDescription(MY_INGREDIENT);
+
+        //When
+        IngredientCommand result = ingredientService.saveIngredientCommand(ingredientCommand);
+
+        //Then
+        assertEquals(ingredientCommand.getId(), result.getId());
+        assertEquals(result.getDescription(), ingredientCommand.getDescription());
+        assertEquals(MY_INGREDIENT, ingredientCommand.getDescription());
+        assertEquals(result.getUom().getId(), ingredientCommand.getUom().getId());
+        assertEquals(result.getUom().getName(), ingredientCommand.getUom().getName());
+        assertEquals(result.getAmount(), ingredientCommand.getAmount());
+
     }
 }

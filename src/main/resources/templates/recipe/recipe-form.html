@@ -67,7 +67,8 @@
                                     <div class="col-md-8">
                                         <label th:each="category: ${categories}">
                                             <!--/*@thymesVar id="categories" type="java.util.Set<com.ddf.training.springrecipeapp.domain.Category>"*/-->
-                                            <input type="checkbox" th:value="" class="form-control col-md-3">
+                                            <input type="checkbox" name="category.id" th:value="${category.id}"
+                                                   class="form-control col-md-3">
                                             <span th:text="${category.categoryName}">cat</span>
                                         </label>
                                     </div>

@@ -1,6 +1,7 @@
 package com.ddf.training.springrecipeapp.services;
 
 import com.ddf.training.springrecipeapp.commands.IngredientCommand;
+import com.ddf.training.springrecipeapp.converters.IngredientCommandToIngredient;
 import com.ddf.training.springrecipeapp.converters.IngredientToIngredientCommand;
 import com.ddf.training.springrecipeapp.domain.Ingredient;
 import com.ddf.training.springrecipeapp.repositories.IngredientRepository;
@@ -26,15 +27,17 @@ public class IngredientServiceImplTest {
     @Mock
     IngredientToIngredientCommand ingredientToIngredientCommand;
 
+    @Mock
+    private IngredientCommandToIngredient ingredientCommandToIngredient;
+
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        ingredientService = new IngredientServiceImpl(ingredientRepository, ingredientToIngredientCommand);
+        ingredientService = new IngredientServiceImpl(ingredientRepository, ingredientToIngredientCommand, ingredientCommandToIngredient);
     }
 
     @Test
-    public void findIngredientById() {
-
+    public void findRecipeIdAndIngredientById() {
         //Given
         Ingredient ingredient = new Ingredient();
         ingredient.setId(1L);
@@ -57,5 +60,37 @@ public class IngredientServiceImplTest {
 
         verify(ingredientToIngredientCommand, only()).convert(any());
         verify(ingredientRepository, only()).findByRecipeIdAndId(anyLong(), anyLong());
+    }
+
+    @Test
+    public void saveIngredientCommand() {
+        //Given
+        Ingredient ingredient = new Ingredient();
+        ingredient.setId(1L);
+        ingredient.setDescription("My ingredient");
+
+        Ingredient ingredient1 = new Ingredient();
+        ingredient1.setDescription("My ingredient");
+
+        IngredientCommand ingredientCommand1 = new IngredientCommand();
+        ingredientCommand1.setId(1L);
+        ingredientCommand1.setDescription("My ingredient");
+
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        ingredientCommand.setDescription("My ingredient");
+
+        when(ingredientRepository.save(any())).thenReturn(ingredient);
+        when(ingredientCommandToIngredient.convert(any())).thenReturn(ingredient1);
+        when(ingredientToIngredientCommand.convert(any())).thenReturn(ingredientCommand1);
+
+        //When
+        IngredientCommand result = ingredientService.saveIngredientCommand(ingredientCommand);
+
+        //Then
+        assertEquals(ingredient.getId(), result.getId());
+        assertEquals(ingredient.getDescription(), result.getDescription());
+        verify(ingredientRepository, only()).save(any());
+        verify(ingredientToIngredientCommand, only()).convert(any());
+        verify(ingredientCommandToIngredient, only()).convert(any());
     }
 }

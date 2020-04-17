@@ -6,8 +6,11 @@ import com.ddf.training.springrecipeapp.commands.NotesCommand;
 import com.ddf.training.springrecipeapp.commands.RecipeCommand;
 import com.ddf.training.springrecipeapp.domain.Recipe;
 import com.ddf.training.springrecipeapp.enums.Difficulty;
+import com.ddf.training.springrecipeapp.repositories.RecipeRepository;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import static org.junit.Assert.*;
 
@@ -29,11 +32,15 @@ public class RecipeCommandToRecipeTest {
 
     RecipeCommandToRecipe converter;
 
+    @Mock
+    private RecipeRepository recipeRepository;
+
 
     @Before
     public void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
         converter = new RecipeCommandToRecipe(new NotesCommandToNotes(),
-                new IngredientCommandToIngredient(new UnitOfMeasureCommandToUnitOfMeasure()),
+                new IngredientCommandToIngredient(new UnitOfMeasureCommandToUnitOfMeasure(), recipeRepository),
                 new CategoryCommandToCategory());
     }
 
