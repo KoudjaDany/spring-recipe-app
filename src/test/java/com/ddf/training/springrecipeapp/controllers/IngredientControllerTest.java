@@ -86,7 +86,7 @@ public class IngredientControllerTest {
         //When
         mockMvc.perform(get("/recipe/1/ingredients/save"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/recipe/1/ingredients"))
+                .andExpect(view().name("redirect:/recipe/1/ingredients/details/1"))
         ;
         //Then
         verify(ingredientService, only()).saveIngredientCommand(any());
@@ -173,5 +173,20 @@ public class IngredientControllerTest {
         verify(ingredientService, only()).findRecipeIdAndIngredientById(anyLong(), anyLong());
         verify(unitOfMeasureService, only()).findAllUoms();
         verify(recipeService, only()).findRecipeCommandById(anyLong());
+    }
+
+    @Test
+    public void deleteIngredient() throws Exception {
+        //Given
+        UnitOfMeasureCommand uomc1 = new UnitOfMeasureCommand();
+        uomc1.setId(1L);
+        uomc1.setName("unit");
+        //When
+        mockMvc.perform(get("/recipe/1/ingredients/delete/1"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/recipe/1/ingredients"))
+        ;
+        //Then
+        verify(ingredientService, only()).deleteIngredient(anyLong());
     }
 }

@@ -50,7 +50,7 @@ public class IngredientController {
     @RequestMapping("/save")
     public String saveOrUpdateIngredient(@ModelAttribute IngredientCommand ingredientCommand) {
         ingredientService.saveIngredientCommand(ingredientCommand);
-        return "redirect:/recipe/" + ingredientCommand.getRecipeId() + "/ingredients";
+        return "redirect:/recipe/" + ingredientCommand.getRecipeId() + "/ingredients/details/" + ingredientCommand.getId();
     }
 
     @RequestMapping("/add")
@@ -70,6 +70,13 @@ public class IngredientController {
         model.addAttribute("recipe", recipeService.findRecipeCommandById(recipeId));
         model.addAttribute("uomList", unitOfMeasureService.findAllUoms());
         return "recipe/ingredients/ingredient-form";
+    }
+
+    @DeleteMapping
+    @RequestMapping("/delete/{ingredientId}")
+    public String deleteIngredient(@PathVariable Long ingredientId, @PathVariable Long recipeId) {
+        ingredientService.deleteIngredient(ingredientId);
+        return "redirect:/recipe/" + recipeId + "/ingredients";
     }
 
 

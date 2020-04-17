@@ -93,4 +93,18 @@ public class IngredientServiceImplTest {
         verify(ingredientToIngredientCommand, only()).convert(any());
         verify(ingredientCommandToIngredient, only()).convert(any());
     }
+
+    @Test
+    public void deleteIngredient() {
+        //Given
+        Ingredient ingredient = new Ingredient();
+        ingredient.setId(1L);
+        ingredient.setDescription("My ingredient");
+
+        //When
+        ingredientService.deleteIngredient(1L);
+
+        //Then
+        verify(ingredientRepository, only()).deleteById(anyLong());
+    }
 }

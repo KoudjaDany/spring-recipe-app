@@ -12,6 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
@@ -72,6 +76,23 @@ public class IngredientServiceIT {
         assertEquals(result.getUom().getId(), ingredientCommand.getUom().getId());
         assertEquals(result.getUom().getName(), ingredientCommand.getUom().getName());
         assertEquals(result.getAmount(), ingredientCommand.getAmount());
+
+    }
+
+    @Test
+    public void deleteIngredient() {
+        //Given
+        Ingredient ingredient = ingredientRepository.findAll().iterator().next();
+        Long id = ingredient.getId();
+        Set<Ingredient> ingredients = StreamSupport.stream(ingredientRepository.findAll().spliterator(), false).collect(Collectors.toSet());
+
+        //When
+        ingredientService.deleteIngredient(id);
+
+        //Then
+        long size = StreamSupport.stream(ingredientRepository.findAll().spliterator(), false).count();
+
+        assertEquals(size, ingredients.size() - 1);
 
     }
 }
