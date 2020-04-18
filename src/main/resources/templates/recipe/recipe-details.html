@@ -55,6 +55,8 @@
                             <a href="#" class="thumbnail">
                                 <img th:src="@{${recipe.imageUrl}}" alt="Photo plat">
                             </a>
+                            <a th:href="@{'/recipe/'+ ${recipe.id} +'/image/change'}"
+                               class="btn btn-warning pull-right">Manage</a>
                         </div>
                         <div class="col-md-7">
                             <div class="row">
