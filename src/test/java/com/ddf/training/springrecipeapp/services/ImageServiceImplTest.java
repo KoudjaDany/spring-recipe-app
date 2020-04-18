@@ -44,7 +44,7 @@ public class ImageServiceImplTest {
         imageService.saveImageFile(id, file);
 
         //Then
-        verify(recipeRepository, only()).findById(anyLong());
+        verify(recipeRepository, atLeast(1)).findById(anyLong());
         verify(recipeRepository, times(1)).save(argumentCaptor.capture());
         Recipe savedRecipe = argumentCaptor.getValue();
         assertEquals(file.getBytes().length, savedRecipe.getImage().length);
