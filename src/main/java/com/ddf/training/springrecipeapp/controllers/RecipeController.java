@@ -25,7 +25,6 @@ public class RecipeController {
 
     @RequestMapping({"/details/{id}"})
     public String getDetailPage(Model model, @PathVariable Long id){
-        System.out.println("Some message to say... kljfs");
         if (id != null){
             Recipe recipe = recipeService.getRecipe(id);
             if (recipe == null){
