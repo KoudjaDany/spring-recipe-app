@@ -32,15 +32,33 @@
                         <img alt="Brand" src="...">
                     </a>
 
+                    <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a th:href="@{/index}">Home</a>
+                        </li>
+                        <li>
+                            <a href="#">Manage Recipes</a>
+                        </li>
+                        <li>
+                            <a href="#">About</a>
+                        </li>
+                    </ul>
+
                 </div>
             </div>
         </nav>
     </header>
     <main>
         <div class="container-fluid">
-            <ol class="breadcrumb">
-                <li><a th:href="@{/index}">Recipes List</a></li>
-            </ol>
+            <div class="jumbotron">
+                <div class="container">
+                    <h1>Welcome on Africa's Recipes!</h1>
+                    <p>Are you ready to discover the wonderful flavors of African cuisine? </p>
+                    <p>
+                        <a class="btn btn-primary btn-lg" th:href="@{/index}">Learn more ...</a>
+                    </p>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-8 col-md-offset-1">
                     <h1>List of Recipes</h1>
