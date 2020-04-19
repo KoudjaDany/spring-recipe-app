@@ -2,6 +2,7 @@ package com.ddf.training.springrecipeapp.converters;
 
 import com.ddf.training.springrecipeapp.commands.RecipeCommand;
 import com.ddf.training.springrecipeapp.domain.Recipe;
+import com.ddf.training.springrecipeapp.utils.ImageUtils;
 import lombok.Synchronized;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
@@ -38,7 +39,7 @@ public class RecipeCommandToRecipe implements Converter<RecipeCommand, Recipe> {
         target.setDirections(source.getDirections());
         target.setServings(source.getServings());
         target.setSource(source.getSource());
-        target.setImage(source.getImage());
+        target.setImage(ImageUtils.getBytesFrom(source.getImage()));
         target.setUrl(source.getUrl());
         target.setNotes(notesConverter.convert(source.getNotes()));
         if (source.getIngredients() != null && !source.getIngredients().isEmpty()) {

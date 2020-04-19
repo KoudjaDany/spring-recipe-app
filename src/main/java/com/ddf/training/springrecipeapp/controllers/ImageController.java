@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import utils.ImageUtils;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
@@ -46,10 +45,8 @@ public class ImageController {
     @RequestMapping("/recipe-image")
     public void renderImageFromDB(@PathVariable Long recipeId, HttpServletResponse response) throws IOException {
         RecipeCommand recipeCommand = recipeService.findRecipeCommandById(recipeId);
-
-        byte[] byteArray = ImageUtils.getBytesFrom(recipeCommand.getImage());
         response.setContentType("image/jpeg");
-        InputStream inputStream = new ByteArrayInputStream(byteArray);
+        InputStream inputStream = new ByteArrayInputStream(recipeCommand.getImage());
         IOUtils.copy(inputStream, response.getOutputStream());
     }
 }

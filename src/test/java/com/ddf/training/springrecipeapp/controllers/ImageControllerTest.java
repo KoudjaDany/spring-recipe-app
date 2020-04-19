@@ -74,14 +74,14 @@ public class ImageControllerTest {
         recipeCommand.setId(1L);
 
         String s = "Fake image text";
-        Byte[] byteBoxed = new Byte[s.getBytes().length];
-        int i = 0;
-        for (byte primByte :
-                s.getBytes()) {
-            byteBoxed[i++] = primByte;
-        }
+//        Byte[] byteBoxed = new Byte[s.getBytes().length];
+//        int i = 0;
+//        for (byte primByte :
+//                s.getBytes()) {
+//            byteBoxed[i++] = primByte;
+//        }
 
-        recipeCommand.setImage(byteBoxed);
+        recipeCommand.setImage(s.getBytes());
         when(recipeService.findRecipeCommandById(anyLong())).thenReturn(recipeCommand);
 
         //When

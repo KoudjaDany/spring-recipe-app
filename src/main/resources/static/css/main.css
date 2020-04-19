@@ -18,6 +18,7 @@
 
     .media img {
         width: 400px;
+        max-height: 400px;
     }
 
     .media-right, .media-left {
@@ -59,6 +60,7 @@
 
     .media img {
         width: 200px;
+        max-height: 200px;
     }
 }
 
