@@ -28,10 +28,10 @@
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" th:href="@{/index}">
-                    <!-- FIXME FIND AND COMPLETE BRAND WITH AN IMAGE CONCERNING RECIPES-->
-                    <img alt="Brand" src="...">
+                    <img class="logo" alt="Brand" th:src="@{'/images/recipe-logo7.png'}"/>
                 </a>
-                <ul class="nav navbar-nav">
+            </div>
+            <ul class="nav navbar-nav pull-right col-md-6">
                     <li class="active">
                         <a th:href="@{/index}">Home</a>
                     </li>
@@ -43,7 +43,6 @@
                     </li>
                 </ul>
             </div>
-        </div>
     </nav>
 </header>
 <main>

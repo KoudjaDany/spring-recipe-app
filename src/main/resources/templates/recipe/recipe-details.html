@@ -26,21 +26,20 @@
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" th:href="@{/index}">
-                    <!-- FIXME FIND AND COMPLETE BRAND WITH AN IMAGE CONCERNING RECIPES-->
-                    <img alt="Brand" src="...">
+                    <img class="logo" alt="Brand" th:src="@{'/images/recipe-logo7.png'}"/>
                 </a>
-                <ul class="nav navbar-nav">
-                    <li class="active">
-                        <a th:href="@{/index}">Home</a>
-                    </li>
-                    <li>
-                        <a href="#">Manage Recipes</a>
-                    </li>
-                    <li>
-                        <a href="#">About</a>
-                    </li>
-                </ul>
             </div>
+            <ul class="nav navbar-nav pull-right col-md-6">
+                <li class="active">
+                    <a th:href="@{/index}">Home</a>
+                </li>
+                <li>
+                    <a href="#">Manage Recipes</a>
+                </li>
+                <li>
+                    <a href="#">About</a>
+                </li>
+            </ul>
         </div>
     </nav>
 </header>
@@ -62,128 +61,130 @@
                         <h3 class="panel-title">Recipe Description</h3>
                     </div>
                     <div class="panel-body">
-                        <div class="col-md-5">
+                        <div class="col-md-5 ">
                             <a href="#" class="thumbnail">
                                 <img th:src="@{${recipe.imageUrl}}" alt="Photo plat">
                             </a>
                             <a th:href="@{'/recipe/'+ ${recipe.id} +'/image/change'}"
-                               class="btn btn-warning pull-right">Manage</a>
+                               class="btn btn-primary center-block">Change Image <span
+                                    class="glyphicon glyphicon-pencil"></span></a>
                         </div>
                         <div class="col-md-7">
                             <div class="row">
                                 <div class="row">
-                                    <div class="col-md-3">
-                                        <h5 class="desc-label"><span class="glyphicon glyphicon-signal"></span>
+                                    <div class="col-md-3 col-xs-3 desc-label">
+                                        <h5><span class="glyphicon glyphicon-signal"></span>
                                             Difficulty:</h5>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3 col-xs-3">
                                         <h5 th:text="${recipe.difficulty.name()}">MODERATE</h5>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-3">
-                                        <h5 class="desc-label"><span class="glyphicon glyphicon-user"></span> Yield:
+                                    <div class="col-md-3 col-xs-3 desc-label">
+                                        <h5><span class="glyphicon glyphicon-user"></span> Yield:
                                         </h5>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3 col-xs-3">
                                         <h5 th:text="'Serves '+ ${recipe.servings}">1 </h5>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-3 ">
-                                        <h5 class="desc-label"><span class="glyphicon glyphicon-time"></span> Prep Time:
+                                    <div class="col-md-3 col-xs-3 desc-label">
+                                        <h5><span class="glyphicon glyphicon-time"></span> Prep Time:
                                         </h5>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3 col-xs-3">
                                         <h5 th:text="${recipe.prepTime}+' minutes'">0 minute</h5>
                                     </div>
-                                    <div class="col-md-3 desc-label">
-                                        <h5 class="desc-label"><span class="glyphicon glyphicon-time"></span> Cook Time:
+                                    <div class="col-md-3 col-xs-3 desc-label">
+                                        <h5><span class="glyphicon glyphicon-time"></span> Cook Time:
                                         </h5>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3 col-xs-3">
                                         <h5 th:text="${recipe.cookTime}+' minutes'">0 minute</h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-3 desc-label">
+                                        <h5> Categories:</h5>
+                                    </div>
+                                    <div class="col-xs-9 category-list">
+                                        <h5 class="col-md-2 col-xs-3" href="#" th:each="category: ${recipe.categories}">
+                                            <span class="badge" th:text="${category.categoryName}">Category Name</span>
+                                        </h5>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-1 desc-label">
-                                <h5> Categories:</h5>
-                            </div>
-                            <div class="col-md-5 category-list">
-                                    <h5 href="#" th:each="category: ${recipe.categories}">
-                                        <span class="badge" th:text="${category.categoryName}">Category Name</span>
-                                    </h5>
-                            </div>
-                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-5 no-padding-left">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <h3 class="panel-title col-md-6"><span class="glyphicon glyphicon-list"></span>
-                                    INGREDIENTS</h3>
+                <div class="row">
+                    <div class="col-md-5 no-padding-left">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    <span class="glyphicon glyphicon-list"></span>
+                                    INGREDIENTS
+                                </h3>
+                            </div>
+                            <div class="panel-body">
+                                <ul>
+                                    <li th:each="ingredient: ${recipe.ingredients}">
+                                        <a th:href="@{'/recipe/'+${recipe.id}+'/ingredients/details/'+${ingredient.id}}"
+                                           th:text="${ingredient.amount}+' '+  ${ingredient.uom.name} + ' ' + ${ingredient.description}"></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="panel-footer text-center">
                                 <a th:href="@{'/recipe/'+ ${recipe.id} +'/ingredients'}"
-                                   class="btn btn-warning pull-right">Manage</a>
+                                   class="btn btn-warning">Manage <span class="glyphicon glyphicon-edit"></span></a>
                             </div>
                         </div>
-                        <div class="panel-body">
-                            <ul>
-                                <li th:each="ingredient: ${recipe.ingredients}">
-                                    <a th:href="@{'/recipe/'+${recipe.id}+'/ingredients/details/'+${ingredient.id}}"
-                                       th:text="${ingredient.amount}+' '+  ${ingredient.uom.name} + ' ' + ${ingredient.description}"></a>
-                                </li>
-                            </ul>
+                    </div>
+
+                    <div class="col-md-7 no-padding-right">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><span class="glyphicon glyphicon-tasks"></span> METHOD</h3>
+                            </div>
+                            <div class="panel-body">
+                                <p th:if="${recipe.directions != null}" th:text="${recipe.directions}"> Procedure </p>
+                                <p>
+                                    From <span th:text="${recipe.source}">Source</span> - <a th:href="@{${recipe.url}}"
+                                                                                             th:text="${recipe.url}">Url</a>
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-md-7 no-padding-right">
+                </div>
+                <div class="row">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><span class="glyphicon glyphicon-tasks"></span> METHOD</h3>
+                            <h3 class="panel-title"><span class="glyphicon glyphicon-pencil"></span> NOTES</h3>
                         </div>
                         <div class="panel-body">
-                            <p th:if="${recipe.directions != null}" th:text="${recipe.directions}"> Procedure </p>
-                            <p>
-                                From <span th:text="${recipe.source}">Source</span> - <a th:href="@{${recipe.url}}"
-                                                                                         th:text="${recipe.url}">Url</a>
-                            </p>
+                            <p th:if="${recipe.notes != null}" th:text="${recipe.notes.recipeNotes}"></p>
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><span class="glyphicon glyphicon-edit"></span> ACTIONS</h3>
+                        </div>
+                        <div class="panel-body">
+                            <a type="button" class="btn btn-warning" th:href="@{/recipe/update/{id}(id=${recipe.id})}">Update
+                                Recipe <span class="glyphicon glyphicon-pencil"></span></a>
+                            <a type="button" class="btn btn-danger" th:href="@{/recipe/delete/{id}(id=${recipe.id})}">Delete
+                                Recipe <span class="glyphicon glyphicon-trash"></span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            </div>
-            <div class="row">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title"><span class="glyphicon glyphicon-pencil"></span> NOTES</h3>
-                    </div>
-                    <div class="panel-body">
-                        <p th:if="${recipe.notes != null}" th:text="${recipe.notes.recipeNotes}"></p>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title"><span class="glyphicon glyphicon-pencil"></span> ACTIONS</h3>
-                    </div>
-                    <div class="panel-body">
-                        <a type="button" class="btn btn-warning" th:href="@{/recipe/update/{id}(id=${recipe.id})}">Update
-                            Recipe</a>
-                        <a type="button" class="btn btn-danger" th:href="@{/recipe/delete/{id}(id=${recipe.id})}">Delete
-                            Recipe</a>
-                    </div>
-                </div>
-            </div>
         </div>
-
-    </div>
 </main>
 
 </body>

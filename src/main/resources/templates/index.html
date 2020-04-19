@@ -2,6 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta>
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="/images/favicon_io/site.webmanifest">
 
     <title th:text="Home">Recipe Home</title>
     <!-- Latest compiled and minified CSS -->
@@ -29,22 +34,20 @@
             <div class="container-fluid">
                 <div class="navbar-header">
                     <a class="navbar-brand" th:href="@{/index}">
-                        <img alt="Brand" src="...">
+                        <img class="logo" alt="Brand" th:src="@{'/images/recipe-logo7.png'}"/>
                     </a>
-
-                    <ul class="nav navbar-nav">
-                        <li class="active">
-                            <a th:href="@{/index}">Home</a>
-                        </li>
-                        <li>
-                            <a href="#">Manage Recipes</a>
-                        </li>
-                        <li>
-                            <a href="#">About</a>
-                        </li>
-                    </ul>
-
                 </div>
+                <ul class="nav navbar-nav pull-right col-md-6">
+                    <li class="active">
+                        <a th:href="@{/index}">Home</a>
+                    </li>
+                    <li>
+                        <a href="#">Manage Recipes</a>
+                    </li>
+                    <li>
+                        <a href="#">About</a>
+                    </li>
+                </ul>
             </div>
         </nav>
     </header>
@@ -60,10 +63,10 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-8 col-md-offset-1">
+                <div>
                     <h1>List of Recipes</h1>
                     <div th:each="recipe: ${recipes}" class="media">
-                        <div th:if="${recipe.id % 2 != 0}" class="media-left media-middle">
+                        <div th:if="${recipe.id % 2 != 0}" class="media-left">
                             <a th:href="@{/recipe/details/{id}(id=${recipe.id})}">
                                 <img th:src="@{${recipe.imageUrl}}"/>
                             </a>
@@ -72,17 +75,24 @@
                             <a th:href="@{/recipe/details/{id}(id=${recipe.id})}">
                                 <h4 class="media-heading" th:text="${recipe.description}"></h4>
                             </a>
-                            <i th:text="${recipe.notes.recipeNotes}" class="text-justify"></i>
-                            <p class="bottom-properties">
+                            <i><p th:text="${recipe.notes.recipeNotes}" class="text-justify"></p></i>
+                            <p class="bottom-properties visible-md">
                                 <span> Prep Time:</span><span th:text="${recipe.prepTime}+' minutes'"></span>
                                 <span> Cook Time:</span><span th:text="${recipe.cookTime}+' minutes'"></span>
                                 <span> Yield:</span><span th:text="'Serves '+ ${recipe.servings}"></span>
                             </p>
                         </div>
-                        <div th:if="${recipe.id % 2 == 0}" class="media-right media-middle">
+                        <div th:if="${recipe.id % 2 == 0}" class="media-right">
                             <a th:href="@{/recipe/details/{id}(id=${recipe.id})}">
                                 <img th:src="@{${recipe.imageUrl}}"/>
                             </a>
+                        </div>
+                        <div class="row">
+                            <p class="bottom-properties hidden-md">
+                                <span> Prep Time:</span><span th:text="${recipe.prepTime}+' minutes'"></span>
+                                <span> Cook Time:</span><span th:text="${recipe.cookTime}+' minutes'"></span>
+                                <span> Yield:</span><span th:text="'Serves '+ ${recipe.servings}"></span>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -90,5 +100,10 @@
 
         </div>
     </main>
+    <footer class="my-footer">
+        <div class="container-fluid">
+            <p class="center-block text-center">Copyright &copy; DDF 2020</p>
+        </div>
+    </footer>
 </body>
 </html>

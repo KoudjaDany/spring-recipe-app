@@ -28,21 +28,20 @@
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" th:href="@{/index}">
-                    <!-- FIXME FIND AND COMPLETE BRAND WITH AN IMAGE CONCERNING RECIPES-->
-                    <img alt="Brand" src="...">
+                    <img class="logo" alt="Brand" th:src="@{'/images/recipe-logo7.png'}"/>
                 </a>
-                <ul class="nav navbar-nav">
-                    <li class="active">
-                        <a th:href="@{/index}">Home</a>
-                    </li>
-                    <li>
-                        <a href="#">Manage Recipes</a>
-                    </li>
-                    <li>
-                        <a href="#">About</a>
-                    </li>
-                </ul>
             </div>
+            <ul class="nav navbar-nav pull-right col-md-6">
+                <li class="active">
+                    <a th:href="@{/index}">Home</a>
+                </li>
+                <li>
+                    <a href="#">Manage Recipes</a>
+                </li>
+                <li>
+                    <a href="#">About</a>
+                </li>
+            </ul>
         </div>
     </nav>
 </header>
@@ -66,14 +65,24 @@
                         <h3 class="panel-title">Upload a new recipe Image</h3>
                     </div>
                     <div class="panel-body">
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-8">
                             <label class="control-label">Select File: </label>
-                            <input class="form-control file" type="file" name="imageFile" id="imageFile">
-                        </div>
+                            <!--                            <input class="form-control file" type="file" name="imageFile" id="imageFile">-->
+                            <div>
+                                <div class="file-dropzone">
+                                    <input type="file" name="imageFile" id="imageFile">
+                                    <p class="has-text-centered">
+                                        <span class="glyphicon glyphicon-upload"></span> Drag your file here or click to
+                                        upload
+                                    </p>
+                                </div>
+                            </div>
                         <button type="submit" class="text-center btn btn-success">Upload
                             <span class="glyphicon glyphicon-upload"></span></button>
                     </div>
-                </div>
+
+                    </div>
+
             </form>
         </div>
 
