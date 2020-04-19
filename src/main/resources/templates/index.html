@@ -73,10 +73,10 @@
                         </div>
                         <div class="media-body">
                             <a th:href="@{/recipe/details/{id}(id=${recipe.id})}">
-                                <h4 class="media-heading" th:text="${recipe.description}"></h4>
+                                <h3 class="media-heading" th:text="${recipe.description}"></h3>
                             </a>
                             <i><p th:text="${recipe.notes.recipeNotes}" class="text-justify"></p></i>
-                            <p class="bottom-properties visible-md">
+                            <p class="bottom-properties visible-xs hidden-sm hidden-md hidden-lg">
                                 <span> Prep Time:</span><span th:text="${recipe.prepTime}+' minutes'"></span>
                                 <span> Cook Time:</span><span th:text="${recipe.cookTime}+' minutes'"></span>
                                 <span> Yield:</span><span th:text="'Serves '+ ${recipe.servings}"></span>
@@ -88,7 +88,7 @@
                             </a>
                         </div>
                         <div class="row">
-                            <p class="bottom-properties hidden-md">
+                            <p class="bottom-properties hidden-xs visible-sm visible-md visible-lg">
                                 <span> Prep Time:</span><span th:text="${recipe.prepTime}+' minutes'"></span>
                                 <span> Cook Time:</span><span th:text="${recipe.cookTime}+' minutes'"></span>
                                 <span> Yield:</span><span th:text="'Serves '+ ${recipe.servings}"></span>

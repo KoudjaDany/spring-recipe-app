@@ -29,8 +29,16 @@
         padding-top: 20px;
     }
 
+    .btn {
+        font-size: inherit;
+    }
+
     h5 {
         font-size: 25px;
+    }
+
+    h3 {
+        font-size: 30px;
     }
 
     main {
