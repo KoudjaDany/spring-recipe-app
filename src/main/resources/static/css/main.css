@@ -159,3 +159,7 @@ img{
 .has-text-centered {
     text-align: center !important;
 }
+
+.procedure {
+    text-align: justify;
+}

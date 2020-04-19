@@ -37,9 +37,18 @@ public class RecipeToRecipeCommand implements Converter<Recipe, RecipeCommand> {
         target.setDirections(source.getDirections());
         target.setServings(source.getServings());
         target.setSource(source.getSource());
-        target.setImage(source.getImage());
         target.setUrl(source.getUrl());
         target.setNotes(notesConverter.convert(source.getNotes()));
+        if (source.getImage() != null && source.getImage().length > 0) {
+            Byte[] byteBoxed = new Byte[source.getImage().length];
+            int i = 0;
+            for (byte primByte :
+                    source.getImage()) {
+                byteBoxed[i++] = primByte;
+            }
+            target.setImage(byteBoxed);
+        }
+        target.setImage(source.getImage());
         if (source.getIngredients() != null && !source.getIngredients().isEmpty()) {
             source.getIngredients().forEach(ingredient -> target.getIngredients().add(ingredientConverter.convert(ingredient)));
         }

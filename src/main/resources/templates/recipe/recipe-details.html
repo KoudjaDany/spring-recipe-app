@@ -63,7 +63,7 @@
                     <div class="panel-body">
                         <div class="col-md-5 ">
                             <a href="#" class="thumbnail">
-                                <img th:src="@{${recipe.imageUrl}}" alt="Photo plat">
+                                <img th:src="@{'/recipe/'+ ${recipe.id} +'/image/recipe-image'}" alt="Photo plat">
                             </a>
                             <a th:href="@{'/recipe/'+ ${recipe.id} +'/image/change'}"
                                class="btn btn-primary center-block">Change Image <span
@@ -149,7 +149,9 @@
                                 <h3 class="panel-title"><span class="glyphicon glyphicon-tasks"></span> METHOD</h3>
                             </div>
                             <div class="panel-body">
-                                <p th:if="${recipe.directions != null}" th:text="${recipe.directions}"> Procedure </p>
+                                <p class="procedure" th:if="${recipe.directions != null}">
+                                    <code th:text="${recipe.directions}">Procedure</code>
+                                </p>
                                 <p>
                                     From <span th:text="${recipe.source}">Source</span> - <a th:href="@{${recipe.url}}"
                                                                                              th:text="${recipe.url}">Url</a>

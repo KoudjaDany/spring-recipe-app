@@ -6,6 +6,7 @@ import com.ddf.training.springrecipeapp.enums.Difficulty;
 import com.ddf.training.springrecipeapp.services.CategoryService;
 import com.ddf.training.springrecipeapp.services.RecipeService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -63,6 +64,11 @@ public class RecipeController {
     public String deleteRecipe(@PathVariable Long id) {
         recipeService.deleteById(id);
         return "redirect:/index";
+    }
+
+    @RequestMapping(value = {"/{id}"}, produces = {"application/json", "application/xml"})
+    public ResponseEntity<RecipeCommand> getDetail(@PathVariable Long id) {
+        return ResponseEntity.ok(recipeService.findRecipeCommandById(id));
     }
 
 

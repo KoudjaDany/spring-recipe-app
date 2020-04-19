@@ -63,12 +63,11 @@
                 </div>
             </div>
             <div class="row">
-                <div>
                     <h1>List of Recipes</h1>
-                    <div th:each="recipe: ${recipes}" class="media">
+                <div th:each="recipe: ${recipes}" class="media col-md-6">
                         <div th:if="${recipe.id % 2 != 0}" class="media-left">
                             <a th:href="@{/recipe/details/{id}(id=${recipe.id})}">
-                                <img th:src="@{${recipe.imageUrl}}"/>
+                                <img th:src="@{'/recipe/'+ ${recipe.id} +'/image/recipe-image'}"/>
                             </a>
                         </div>
                         <div class="media-body">
@@ -84,7 +83,7 @@
                         </div>
                         <div th:if="${recipe.id % 2 == 0}" class="media-right">
                             <a th:href="@{/recipe/details/{id}(id=${recipe.id})}">
-                                <img th:src="@{${recipe.imageUrl}}"/>
+                                <img th:src="@{'/recipe/'+ ${recipe.id} +'/image/recipe-image'}"/>
                             </a>
                         </div>
                         <div class="row">
@@ -95,7 +94,6 @@
                             </p>
                         </div>
                     </div>
-                </div>
             </div>
 
         </div>
