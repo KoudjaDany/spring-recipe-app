@@ -42,7 +42,7 @@
                         <a th:href="@{/index}">Home</a>
                     </li>
                     <li>
-                        <a href="#">Manage Recipes</a>
+                        <a th:href="@{/recipe/new}" href="#">Create Recipes</a>
                     </li>
                     <li>
                         <a href="#">About</a>
@@ -51,23 +51,26 @@
             </div>
         </nav>
     </header>
+    <div class="jumbotron">
+        <div class="container text-center">
+            <img class="" alt="Brand" th:src="@{'/images/recipe-logo7.png'}"/>
+            <h1>Welcome on Africa's Recipes!</h1>
+            <p>Are you ready to discover the wonderful flavors of African cuisine? </p>
+            <p>
+                <a class="btn btn-warning btn-lg" th:href="@{/recipe/new}"><span
+                        class="glyphicon glyphicon-flash"></span> Getting Started...</a>
+            </p>
+        </div>
+    </div>
     <main>
         <div class="container-fluid">
-            <div class="jumbotron">
-                <div class="container">
-                    <h1>Welcome on Africa's Recipes!</h1>
-                    <p>Are you ready to discover the wonderful flavors of African cuisine? </p>
-                    <p>
-                        <a class="btn btn-primary btn-lg" th:href="@{/index}">Learn more ...</a>
-                    </p>
-                </div>
-            </div>
             <div class="row">
                     <h1>List of Recipes</h1>
                 <div th:each="recipe: ${recipes}" class="media col-md-6">
-                        <div th:if="${recipe.id % 2 != 0}" class="media-left">
+                    <div class="media-left">
                             <a th:href="@{/recipe/details/{id}(id=${recipe.id})}">
-                                <img th:src="@{'/recipe/'+ ${recipe.id} +'/image/recipe-image'}"/>
+                                <img th:src="@{'/recipe/'+ ${recipe.id} +'/image/recipe-image'}"
+                                     src="/images/GrilledChickenTacos.jpg"/>
                             </a>
                         </div>
                         <div class="media-body">
@@ -81,11 +84,11 @@
                                 <span> Yield:</span><span th:text="'Serves '+ ${recipe.servings}"></span>
                             </p>
                         </div>
-                        <div th:if="${recipe.id % 2 == 0}" class="media-right">
-                            <a th:href="@{/recipe/details/{id}(id=${recipe.id})}">
-                                <img th:src="@{'/recipe/'+ ${recipe.id} +'/image/recipe-image'}"/>
-                            </a>
-                        </div>
+                    <!--                        <div th:if="${recipe.id % 2 == 0}" class="media-right">-->
+                    <!--                            <a th:href="@{/recipe/details/{id}(id=${recipe.id})}">-->
+                    <!--                                <img th:src="@{'/recipe/'+ ${recipe.id} +'/image/recipe-image'}"/>-->
+                    <!--                            </a>-->
+                    <!--                        </div>-->
                         <div class="row">
                             <p class="bottom-properties hidden-xs visible-sm visible-md visible-lg">
                                 <span> Prep Time:</span><span th:text="${recipe.prepTime}+' minutes'"></span>

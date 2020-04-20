@@ -34,7 +34,7 @@
                     <a th:href="@{/index}">Home</a>
                 </li>
                 <li>
-                    <a href="#">Manage Recipes</a>
+                    <a th:href="@{/recipe/new}" href="#">Create Recipes</a>
                 </li>
                 <li>
                     <a href="#">About</a>
@@ -138,7 +138,8 @@
                             </div>
                             <div class="panel-footer text-center">
                                 <a th:href="@{'/recipe/'+ ${recipe.id} +'/ingredients'}"
-                                   class="btn btn-warning">Manage <span class="glyphicon glyphicon-edit"></span></a>
+                                   class="btn btn-warning center-block">Manage <span
+                                        class="glyphicon glyphicon-edit"></span></a>
                             </div>
                         </div>
                     </div>
@@ -150,7 +151,7 @@
                             </div>
                             <div class="panel-body">
                                 <p class="procedure" th:if="${recipe.directions != null}">
-                                    <code th:text="${recipe.directions}">Procedure</code>
+                                    <span th:text="${recipe.directions}">Procedure</span>
                                 </p>
                                 <p>
                                     From <span th:text="${recipe.source}">Source</span> - <a th:href="@{${recipe.url}}"
@@ -172,11 +173,11 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="panel panel-primary">
+                    <div class="panel panel-primary actions">
                         <div class="panel-heading">
                             <h3 class="panel-title"><span class="glyphicon glyphicon-edit"></span> ACTIONS</h3>
                         </div>
-                        <div class="panel-body">
+                        <div class="panel-body text-center">
                             <a type="button" class="btn btn-warning" th:href="@{/recipe/update/{id}(id=${recipe.id})}">Update
                                 Recipe <span class="glyphicon glyphicon-pencil"></span></a>
                             <a type="button" class="btn btn-danger" th:href="@{/recipe/delete/{id}(id=${recipe.id})}">Delete

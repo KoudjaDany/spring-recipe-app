@@ -36,7 +36,7 @@
                     <a th:href="@{/index}">Home</a>
                 </li>
                 <li>
-                    <a href="#">Manage Recipes</a>
+                    <a th:href="@{/recipe/new}" href="#">Create Recipes</a>
                 </li>
                 <li>
                     <a href="#">About</a>
@@ -65,9 +65,10 @@
                         <h3 class="panel-title">Upload a new recipe Image</h3>
                     </div>
                     <div class="panel-body">
-                        <div class="form-group col-md-8">
+                        <div class="form-group col-md-10 image-upload">
                             <label class="control-label">Select File: </label>
-                            <input class="form-control file" type="file" name="imageFile" id="imageFile">
+                            <input class="form-control file" type="file" name="imageFile" id="imageFile"
+                                   onchange="changeBackgroundColor()">
                             <!--                            <div>-->
                             <!--                                <div class="file-dropzone">-->
                             <!--                                    <input type="file" name="imageFile" id="imageFile">-->
@@ -93,5 +94,18 @@
         <p class="center-block text-center">Copyright &copy; DDF 2020</p>
     </div>
 </footer>
+
+<script>
+    function changeBackgroundColor() {
+        console.log("change image");
+        var imageInput = document.getElementById("imageFile");
+        if (imageInput.getAttribute("value") !== undefined) {
+            console.log("We change");
+            imageInput.style.fontWeight = "bolder";
+            imageInput.style.backgroundColor = "#9930cc3b";
+            imageInput.style.color = "black"
+        }
+    }
+</script>
 </body>
 </html>

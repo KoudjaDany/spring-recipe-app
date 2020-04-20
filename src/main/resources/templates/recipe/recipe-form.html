@@ -38,7 +38,7 @@
                     <a th:href="@{/index}">Home</a>
                 </li>
                 <li>
-                    <a href="#">Manage Recipes</a>
+                    <a th:href="@{/recipe/new}" href="#">Create Recipes</a>
                 </li>
                 <li>
                     <a href="#">About</a>
@@ -55,7 +55,9 @@
             </li>
         </ol>
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-11">
+                <h2 th:if="${recipe['new']}">Create a Recipe</h2>
+                <h2 th:if="${!recipe['new']}">Edit a Recipe</h2>
                 <form th:action="@{/recipe/save}" th:object="${recipe}" method="post">
                     <input type="hidden" th:field="*{id}">
                     <div class="panel-group">
@@ -125,22 +127,24 @@
                         <div class="no-padding-left">
                             <div class="panel panel-primary">
                                 <div class="panel-heading">
-                                    <div class="row">
-                                        <h3 class="panel-title col-md-3"><span class="glyphicon glyphicon-list"></span>
-                                            INGREDIENTS</h3>
-                                        <button type="button" onclick="console.log('add ingredient')"
-                                                class="pull-right">Edit
-                                        </button>
-                                    </div>
+                                    <h3 class="panel-title"><span class="glyphicon glyphicon-list"></span>
+                                        INGREDIENTS</h3>
                                 </div>
                                 <div class="panel-body">
                                     <ul>
                                         <li th:each="ingredient: ${recipe.ingredients}">
-                                            <span th:text="${ingredient.amount}">1</span> <span
+                                            <a th:href="@{'/recipe/'+${recipe.id}+'/ingredients/details/'+${ingredient.id}}">
+                                                <span th:text="${ingredient.amount}">1</span> <span
                                                 th:text="${ingredient.uom.name}">unité</span> <span
                                                 th:text="${ingredient.description}"> d'ingredient</span>
+                                            </a>
                                         </li>
                                     </ul>
+                                </div>
+                                <div class="panel-footer text-center">
+                                    <a th:href="@{'/recipe/-1/ingredients/new'}"
+                                       class="btn btn-primary">Add Ingredient<span
+                                            class="glyphicon glyphicon-plus-sign"></span></a>
                                 </div>
                             </div>
                         </div>
