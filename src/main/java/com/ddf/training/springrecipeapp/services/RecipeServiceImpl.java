@@ -32,7 +32,7 @@ public class RecipeServiceImpl implements RecipeService{
     }
 
     public Set<Recipe> listAll(){
-        log.debug("I'm in the service to return a list of all recipes.");
+        //log.debug("I'm in the service to return a list of all recipes.");
         Set<Recipe> recipes = new HashSet<>();
         recipeRepository.findAll();
         Iterator<Recipe> recipeIterator = recipeRepository.findAll().iterator();

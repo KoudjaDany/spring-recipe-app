@@ -17,7 +17,7 @@ public interface CategoryRepository extends CrudRepository<Category, Long> {
     Optional<Category> findByCategoryName(String name);
 
     @Query("SELECT category from Category category where category.categoryName like :categoryName")
-    List<Category> findByCategoryNameLike(String categoryName);
+    List<Category> findByCategoryNameLike(@Param("categoryName") String categoryName);
 
     @Query("SELECT category from Category category where category.categoryName like %:categoryName%")
     Page<Category> findByCategoryNameLike( @Param("categoryName") String categoryName, Pageable pageable);

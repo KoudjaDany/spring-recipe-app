@@ -16,4 +16,14 @@ public class IngredientCommand {
     private UnitOfMeasureCommand uom;
     private Long recipeId;
 
+    public boolean isNotEmpty() {
+        return description != null && description != ""
+                && amount != null
+                && uom != null;
+    }
+
+    @Override
+    public String toString() {
+        return amount + " " + " " + uom.toString() + " " + description;
+    }
 }

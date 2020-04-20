@@ -22,7 +22,7 @@ public class Ingredient {
     @OneToOne(fetch = FetchType.EAGER)
     private UnitOfMeasure uom;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Recipe recipe;
 
 }

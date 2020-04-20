@@ -1,6 +1,7 @@
 package com.ddf.training.springrecipeapp.controllers;
 
 import com.ddf.training.springrecipeapp.commands.IngredientCommand;
+import com.ddf.training.springrecipeapp.commands.RecipeCommand;
 import com.ddf.training.springrecipeapp.commands.UnitOfMeasureCommand;
 import com.ddf.training.springrecipeapp.services.IngredientService;
 import com.ddf.training.springrecipeapp.services.RecipeService;
@@ -79,5 +80,23 @@ public class IngredientController {
         return "redirect:/recipe/" + recipeId + "/ingredients";
     }
 
+
+    @RequestMapping("/new")
+    public String newIngredient(Model model) {
+        Set<UnitOfMeasureCommand> allUoms = unitOfMeasureService.findAllUoms();
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        ingredientCommand.setUom(allUoms.iterator().next());
+        model.addAttribute("ingredient", ingredientCommand);
+        model.addAttribute("recipe", new RecipeCommand());
+        model.addAttribute("uomList", allUoms);
+        return "recipe/ingredients/new-ingredient-form";
+    }
+
+    @PostMapping
+    @PutMapping
+    @RequestMapping("/add-ingredient")
+    public String addIngredientToRecipe(@ModelAttribute("ingredient") IngredientCommand ingredientCommand) {
+        return "forward:/recipe/new";
+    }
 
 }
