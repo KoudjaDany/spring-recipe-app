@@ -7,6 +7,7 @@ import com.ddf.training.springrecipeapp.enums.Difficulty;
 import com.ddf.training.springrecipeapp.repositories.CategoryRepository;
 import com.ddf.training.springrecipeapp.repositories.RecipeRepository;
 import com.ddf.training.springrecipeapp.repositories.UnitOfMeasureRepository;
+import com.ddf.training.springrecipeapp.utils.ImageUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -23,6 +24,8 @@ public class RecipeBootsrap implements ApplicationListener<ContextRefreshedEvent
     private RecipeRepository recipeRepository;
     private UnitOfMeasureRepository unitOfMeasureRepository;
     private CategoryRepository categoryRepository;
+    final String URL_TO_STATIC_DIR = "src/main/resources/static";
+
 
     public RecipeBootsrap(RecipeRepository recipeRepository, UnitOfMeasureRepository unitOfMeasureRepository, CategoryRepository categoryRepository) {
         this.recipeRepository = recipeRepository;
@@ -46,6 +49,8 @@ public class RecipeBootsrap implements ApplicationListener<ContextRefreshedEvent
         spicyGrilledChickenTacos.setDescription("Spicy Grilled Chicken Tacos");
         spicyGrilledChickenTacos.setSource("Simply Recipes");
         spicyGrilledChickenTacos.setImageUrl("/images/GrilledChickenTacos.jpg");
+        spicyGrilledChickenTacos.setImage(ImageUtils.getImage(URL_TO_STATIC_DIR.concat(spicyGrilledChickenTacos.getImageUrl())));
+
         spicyGrilledChickenTacos.setDifficulty(Difficulty.MODERATE);
 
         spicyGrilledChickenTacos.getCategories().addAll(Arrays.asList(categoryRepository.findByCategoryName("Fast Food").get()));
@@ -132,6 +137,7 @@ public class RecipeBootsrap implements ApplicationListener<ContextRefreshedEvent
         perfectGuacamole.setDescription("Perfect Guacamole");
         perfectGuacamole.setSource("Simply Recipes");
         perfectGuacamole.setImageUrl("/images/Guacamole.jpg");
+        perfectGuacamole.setImage(ImageUtils.getImage(URL_TO_STATIC_DIR.concat(perfectGuacamole.getImageUrl())));
         perfectGuacamole.setDifficulty(Difficulty.EASY);
 
         perfectGuacamole.getCategories().addAll(Arrays.asList(categoryRepository.findByCategoryName("Fast Food").get()));

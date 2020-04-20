@@ -7,6 +7,7 @@ import com.ddf.training.springrecipeapp.enums.Difficulty;
 import com.ddf.training.springrecipeapp.repositories.CategoryRepository;
 import com.ddf.training.springrecipeapp.repositories.RecipeRepository;
 import com.ddf.training.springrecipeapp.repositories.UnitOfMeasureRepository;
+import com.ddf.training.springrecipeapp.utils.ImageUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -22,6 +23,7 @@ public class Bootstrap implements CommandLineRunner {
     private RecipeRepository recipeRepository;
     private UnitOfMeasureRepository unitOfMeasureRepository;
     private CategoryRepository categoryRepository;
+    final String URL_TO_STATIC_DIR = "src/main/resources/static";
 
     public Bootstrap(RecipeRepository recipeRepository, UnitOfMeasureRepository unitOfMeasureRepository, CategoryRepository categoryRepository) {
         this.recipeRepository = recipeRepository;
@@ -47,7 +49,7 @@ public class Bootstrap implements CommandLineRunner {
         spicyGrilledChickenTacos.setSource("Simply Recipes");
         spicyGrilledChickenTacos.setImageUrl("/images/GrilledChickenTacos.jpg");
         spicyGrilledChickenTacos.setDifficulty(Difficulty.MODERATE);
-
+        spicyGrilledChickenTacos.setImage(ImageUtils.getImage(URL_TO_STATIC_DIR.concat(spicyGrilledChickenTacos.getImageUrl())));
         spicyGrilledChickenTacos.getCategories().addAll(Arrays.asList(categoryRepository.findByCategoryName("Fast Food").get()));
 
         Notes notes = new Notes();
@@ -131,6 +133,7 @@ public class Bootstrap implements CommandLineRunner {
         perfectGuacamole.setDescription("Perfect Guacamole");
         perfectGuacamole.setSource("Simply Recipes");
         perfectGuacamole.setImageUrl("/images/Guacamole.jpg");
+        perfectGuacamole.setImage(ImageUtils.getImage(URL_TO_STATIC_DIR.concat(perfectGuacamole.getImageUrl())));
         perfectGuacamole.setDifficulty(Difficulty.EASY);
 
         perfectGuacamole.getCategories().addAll(Arrays.asList(categoryRepository.findByCategoryName("Fast Food").get()));
