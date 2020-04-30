@@ -2,6 +2,7 @@ package com.ddf.training.springrecipeapp.controllers;
 
 import com.ddf.training.springrecipeapp.commands.RecipeCommand;
 import com.ddf.training.springrecipeapp.domain.Recipe;
+import com.ddf.training.springrecipeapp.exceptions.NotFoundException;
 import com.ddf.training.springrecipeapp.services.CategoryService;
 import com.ddf.training.springrecipeapp.services.RecipeService;
 import org.junit.Before;
@@ -33,11 +34,14 @@ public class RecipeControllerTest {
     @Mock
     Model model;
 
+    MockMvc mockMvc;
+
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         recipeController = new RecipeController(recipeService, categoryService);
+        mockMvc = MockMvcBuilders.standaloneSetup(recipeController).build();
     }
 
     @Test
@@ -75,12 +79,23 @@ public class RecipeControllerTest {
     }
 
     @Test
+    public void getRecipeNotFound() throws Exception {
+        //Given
+        when(recipeService.getRecipe(anyLong())).thenThrow(NotFoundException.class);
+
+        //When
+        mockMvc.perform(get("/recipe/details/1"))
+                .andExpect(status().isNotFound());
+        //Then
+    }
+
+    @Test
     public void saveRecipe() throws Exception {
         RecipeCommand recipeCommand = new RecipeCommand();
         recipeCommand.setId(1L);
         recipeCommand.setDescription("recipe description");
 
-        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(recipeController).build();
+
         when(recipeService.saveRecipeCommand(any())).thenReturn(recipeCommand);
 
         mockMvc.perform(post("/recipe/save", recipeCommand)
@@ -103,7 +118,7 @@ public class RecipeControllerTest {
         Recipe recipe = new Recipe();
         recipe.setId(1L);
 
-        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(recipeController).build();
+
         when(recipeService.findRecipeCommandById(anyLong())).thenReturn(recipeCommand);
 
         mockMvc.perform(get("/recipe/update/1"))
@@ -119,7 +134,6 @@ public class RecipeControllerTest {
         //Given
         Recipe recipe = new Recipe();
         recipe.setId(1L);
-        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(recipeController).build();
 
         //When
         mockMvc.perform(get("/recipe/delete/1"))

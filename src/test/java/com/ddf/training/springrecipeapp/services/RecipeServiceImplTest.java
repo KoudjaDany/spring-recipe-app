@@ -3,6 +3,7 @@ package com.ddf.training.springrecipeapp.services;
 import com.ddf.training.springrecipeapp.converters.RecipeCommandToRecipe;
 import com.ddf.training.springrecipeapp.converters.RecipeToRecipeCommand;
 import com.ddf.training.springrecipeapp.domain.Recipe;
+import com.ddf.training.springrecipeapp.exceptions.NotFoundException;
 import com.ddf.training.springrecipeapp.repositories.RecipeRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -49,6 +50,17 @@ public class RecipeServiceImplTest {
         assertNotNull("Null recipe returned",recipeReturned);
         verify(recipeRepository,times(1)).findById(anyLong());
         verify(recipeRepository, never()).findAll();
+    }
+
+
+    @Test(expected = NotFoundException.class)
+    public void getRecipeByIdTestNotFound() {
+        Optional<Recipe> recipeOptional = Optional.empty();
+
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+        Recipe recipeReturned = recipeService.getRecipe(1L);
+
     }
 
     @Test

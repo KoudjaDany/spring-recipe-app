@@ -4,13 +4,13 @@ import com.ddf.training.springrecipeapp.commands.RecipeCommand;
 import com.ddf.training.springrecipeapp.converters.RecipeCommandToRecipe;
 import com.ddf.training.springrecipeapp.converters.RecipeToRecipeCommand;
 import com.ddf.training.springrecipeapp.domain.Recipe;
+import com.ddf.training.springrecipeapp.exceptions.NotFoundException;
 import com.ddf.training.springrecipeapp.repositories.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
@@ -40,8 +40,8 @@ public class RecipeServiceImpl implements RecipeService{
         return recipes;
     }
 
-    public Recipe getRecipe(Long id){
-        return recipeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("The recipe of id" + id + " doesn't exist."));
+    public Recipe getRecipe(Long id) throws NotFoundException {
+        return recipeRepository.findById(id).orElseThrow(() -> new NotFoundException("Recipe of id " + id + " not found."));
     }
 
     @Override
