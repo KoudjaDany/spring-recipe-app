@@ -85,7 +85,8 @@ public class RecipeControllerTest {
 
         //When
         mockMvc.perform(get("/recipe/details/1"))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isNotFound())
+                .andExpect(view().name("404error"));
         //Then
     }
 
@@ -142,4 +143,6 @@ public class RecipeControllerTest {
         //Then
         verify(recipeService, only()).deleteById(anyLong());
     }
+
+
 }

@@ -4,13 +4,16 @@ import com.ddf.training.springrecipeapp.commands.IngredientCommand;
 import com.ddf.training.springrecipeapp.commands.RecipeCommand;
 import com.ddf.training.springrecipeapp.domain.Recipe;
 import com.ddf.training.springrecipeapp.enums.Difficulty;
+import com.ddf.training.springrecipeapp.exceptions.NotFoundException;
 import com.ddf.training.springrecipeapp.services.CategoryService;
 import com.ddf.training.springrecipeapp.services.RecipeService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -83,6 +86,17 @@ public class RecipeController {
     @RequestMapping(value = {"/{id}"}, produces = {"application/json", "application/xml"})
     public ResponseEntity<RecipeCommand> getDetail(@PathVariable Long id) {
         return ResponseEntity.ok(recipeService.findRecipeCommandById(id));
+    }
+
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NotFoundException.class)
+    public ModelAndView handleNotFound() {
+        log.error("Handling Not Found Exception.");
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("404error");
+        return modelAndView;
     }
 
 

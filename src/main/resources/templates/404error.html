@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="/images/favicon_io/site.webmanifest">
+
+    <title th:text="Home">Recipe Home</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"
+          th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"
+          th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap-theme.min.css}">
+
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+
+    <script src="webjars/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"
+            th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}">
+    </script>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" th:href="@{/index}">
+                    <img class="logo" alt="Brand" th:src="@{'/images/recipe-logo7.png'}"/>
+                </a>
+            </div>
+            <ul class="nav navbar-nav pull-right col-md-6">
+                <li class="active">
+                    <a th:href="@{/index}">Home</a>
+                </li>
+                <li>
+                    <a th:href="@{/recipe/new}" href="#">Create Recipes</a>
+                </li>
+                <li>
+                    <a href="#">About</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<div class="jumbotron">
+    <div class="container text-center">
+        <h1>404 NOT FOUND!</h1>
+        <p>The resource is not found. </p>
+        <p>
+            <a class="btn btn-warning btn-lg" th:href="@{/index}"><span
+                    class="glyphicon glyphicon-home"></span> Home...</a>
+        </p>
+    </div>
+</div>
+<main></main>
+<footer class="my-footer">
+    <div class="container-fluid">
+        <p class="center-block text-center">Copyright &copy; DDF 2020</p>
+    </div>
+</footer>
+</body>
+</html>
