@@ -24,14 +24,17 @@ public class RecipeCommand {
     @Size(min = 3, max = 255)
     private String description;
 
+    @NotNull
     @Min(1)
     @Max(999)
     private Integer prepTime;
 
+    @NotNull
     @Min(1)
     @Max(999)
     private Integer cookTime;
 
+    @NotNull
     @Min(1)
     @Max(999)
     private Integer servings;
@@ -53,10 +56,13 @@ public class RecipeCommand {
     private Set<@Valid IngredientCommand> ingredients = new HashSet<>();
     private Set<@Valid CategoryCommand> categories = new HashSet<>();
 
+    public void setIngredients(Set<IngredientCommand> ingredients) {
+        ingredients.forEach(this::addIngredient);
+    }
     public void addIngredient(IngredientCommand ingredientCommand) {
         if (Objects.nonNull(ingredientCommand)) {
             ingredients.add(ingredientCommand);
-            ingredientCommand.setRecipeId(null);
+            ingredientCommand.setRecipeId(this.id);
         }
     }
 

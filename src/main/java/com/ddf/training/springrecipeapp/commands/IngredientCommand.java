@@ -19,14 +19,13 @@ public class IngredientCommand {
     @NotBlank
     private String description;
 
-
+    @NotNull
     @PositiveOrZero
     private BigDecimal amount;
 
     @Valid
     private UnitOfMeasureCommand uom;
 
-    @NotNull
     private Long recipeId;
 
     public boolean isNotEmpty() {
