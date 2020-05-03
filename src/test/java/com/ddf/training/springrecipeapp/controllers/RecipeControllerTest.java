@@ -147,9 +147,12 @@ public class RecipeControllerTest {
         )
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("recipe"))
+                .andExpect(model().attributeExists("difficulties"))
+                .andExpect(model().attributeExists("categories"))
                 .andExpect(model().attributeExists("errors"))
                 .andExpect(view().name("recipe/recipe-form"));
         verifyNoInteractions(recipeService);
+
     }
 
     @Test

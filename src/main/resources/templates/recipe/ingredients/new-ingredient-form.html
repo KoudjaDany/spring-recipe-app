@@ -56,15 +56,16 @@
         <div class="row">
             <ol class="breadcrumb">
                 <li><a th:href="@{/index}">Recipes List</a></li>
-                <li><a th:href="@{'/recipe/new'}"
-                       th:text="${recipe.description}">New
-                    Recipe</a>
-                </li>
+                <li><a th:href="@{'/recipe/new'}">New Recipe</a></li>
             </ol>
         </div>
         <h2 class="col-md-offset-1" th:text="${ingredient.description}"></h2>
         <div class="col-md-9">
-            <form th:object="${ingredient}" th:action="@{'/recipe/new'}" method="post">
+            <form th:object="${ingredient}" th:action="@{'/recipe/-1/ingredients/new'}" method="post">
+                <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <strong>Incorrect data!</strong> Please Correct Errors Below
+                </div>
                 <input type="hidden" th:field="*{id}">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
@@ -72,13 +73,22 @@
                     </div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-4"
+                                 th:class="${#fields.hasErrors('description')}? 'col-md-4 form-group has-error': 'form-group col-md-4'">
                                 <label class="desc-label">Ingredient Description: </label>
-                                <input type="text" class="form-control" th:field="*{description}">
+                                <input type="text" class="form-control" th:field="*{description}"
+                                       th:errorclas="has-error">
+                                <span class="help-block">
+                                            <ul>
+                                                <li th:each="error: ${#fields.errors('description')}"
+                                                    th:text="${error}"></li>
+                                            </ul>
+                                        </span>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-4"
+                                 th:class="${#fields.hasErrors('uom')}? 'col-md-4 form-group has-error': 'form-group col-md-4'">
                                 <label class="desc-label"> Unit of Measure: </label>
-                                <select class="form-control" name="uom">
+                                <select class="form-control" name="uom" th:errorclas="has-error">
                                     <option th:each="uom: ${uomList}"
                                             th:value="${uom}"
                                             th:selected="${uom.id.equals(ingredient.uom.id)}"
@@ -86,10 +96,22 @@
                                         Uom
                                     </option>
                                 </select>
+                                <span class="help-block">
+                                            <ul>
+                                                <li th:each="error: ${#fields.errors('uom')}" th:text="${error}"></li>
+                                            </ul>
+                                        </span>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-4"
+                                 th:class="${#fields.hasErrors('amount')}? 'col-md-4 form-group has-error': 'form-group col-md-4'">
                                 <label class="desc-label">Amount/Quantity: </label>
-                                <input class="form-control" type="number" th:field="*{amount}">
+                                <input class="form-control" type="number" th:field="*{amount}" th:errorclas="has-error">
+                                <span class="help-block">
+                                            <ul>
+                                                <li th:each="error: ${#fields.errors('amount')}"
+                                                    th:text="${error}"></li>
+                                            </ul>
+                                        </span>
                             </div>
                         </div>
                     </div>

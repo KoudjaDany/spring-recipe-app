@@ -4,17 +4,14 @@ import com.ddf.training.springrecipeapp.commands.IngredientCommand;
 import com.ddf.training.springrecipeapp.commands.RecipeCommand;
 import com.ddf.training.springrecipeapp.domain.Recipe;
 import com.ddf.training.springrecipeapp.enums.Difficulty;
-import com.ddf.training.springrecipeapp.exceptions.NotFoundException;
 import com.ddf.training.springrecipeapp.services.CategoryService;
 import com.ddf.training.springrecipeapp.services.RecipeService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.Collections;
@@ -51,8 +48,7 @@ public class RecipeController {
     }
 
     @RequestMapping("/new")
-    public String newRecipe(Model model, @ModelAttribute(name = "recipe") RecipeCommand recipe, @ModelAttribute IngredientCommand ingredientCommand) {
-
+    public String newRecipe(Model model, @Valid @ModelAttribute(name = "recipe") RecipeCommand recipe, BindingResult bindingResult, @ModelAttribute IngredientCommand ingredientCommand) {
         if (Objects.nonNull(ingredientCommand) && ingredientCommand.isNotEmpty()) {
             ingredients.add(ingredientCommand);
         }
@@ -75,6 +71,7 @@ public class RecipeController {
         recipeCommand.setIngredients(ingredients);
         if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(error -> log.error(error.toString()));
+            model.addAttribute("difficulties", Difficulty.values());
             model.addAttribute("categories", categoryService.findAll());
             return "recipe/recipe-form";
         }
@@ -92,18 +89,6 @@ public class RecipeController {
     @RequestMapping(value = {"/{id}"}, produces = {"application/json", "application/xml"})
     public ResponseEntity<RecipeCommand> getDetail(@PathVariable Long id) {
         return ResponseEntity.ok(recipeService.findRecipeCommandById(id));
-    }
-
-
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(NotFoundException.class)
-    public ModelAndView handleNotFound(Exception exception) {
-        log.error("Handling Not Found Exception.");
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("404error");
-        modelAndView.addObject("message", exception.getMessage());
-        return modelAndView;
     }
 
 }

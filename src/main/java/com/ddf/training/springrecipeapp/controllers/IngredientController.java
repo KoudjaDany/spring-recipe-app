@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Set;
 
 @Slf4j
@@ -50,7 +51,7 @@ public class IngredientController {
     @PostMapping
     @PutMapping
     @RequestMapping("/save")
-    public String saveOrUpdateIngredient(@ModelAttribute("ingredient") IngredientCommand ingredientCommand, BindingResult bindingResult) {
+    public String saveOrUpdateIngredient(@Valid @ModelAttribute("ingredient") IngredientCommand ingredientCommand, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "recipe/ingredients/ingredient-form";
         }
@@ -85,7 +86,7 @@ public class IngredientController {
     }
 
 
-    @RequestMapping("/new")
+    @GetMapping("/new")
     public String newIngredient(Model model) {
         Set<UnitOfMeasureCommand> allUoms = unitOfMeasureService.findAllUoms();
         IngredientCommand ingredientCommand = new IngredientCommand();
@@ -96,12 +97,14 @@ public class IngredientController {
         return "recipe/ingredients/new-ingredient-form";
     }
 
-    @PostMapping
-    @PutMapping
-    @RequestMapping("/add-ingredient")
-    public String addIngredientToRecipe(@ModelAttribute("ingredient") IngredientCommand ingredientCommand, BindingResult bindingResult) {
+    @PostMapping("/new")
+    public String addIngredientToRecipe(@Valid @ModelAttribute("ingredient") IngredientCommand ingredientCommand, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "recipe/ingredients/ingredient-form";
+            log.info("------INGREDIENT ERRORS -----------");
+            bindingResult.getAllErrors().forEach(objectError -> log.error(objectError.toString()));
+            Set<UnitOfMeasureCommand> allUoms = unitOfMeasureService.findAllUoms();
+            model.addAttribute("uomList", allUoms);
+            return "recipe/ingredients/new-ingredient-form";
         }
         return "forward:/recipe/new";
     }
