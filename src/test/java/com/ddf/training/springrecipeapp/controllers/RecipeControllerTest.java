@@ -91,6 +91,16 @@ public class RecipeControllerTest {
     }
 
     @Test
+    public void getRecipeNumberFormatException() throws Exception {
+        //Given
+        //When
+        mockMvc.perform(get("/recipe/details/toto"))
+                .andExpect(status().isBadRequest())
+                .andExpect(view().name("400error"));
+        //Then
+    }
+
+    @Test
     public void saveRecipe() throws Exception {
         RecipeCommand recipeCommand = new RecipeCommand();
         recipeCommand.setId(1L);
