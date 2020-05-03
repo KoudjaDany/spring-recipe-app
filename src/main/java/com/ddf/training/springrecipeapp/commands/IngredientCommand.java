@@ -4,6 +4,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 
 @Getter
@@ -11,19 +15,23 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class IngredientCommand {
     private Long id;
+
+    @NotBlank
     private String description;
+
+
+    @PositiveOrZero
     private BigDecimal amount;
+
+    @Valid
     private UnitOfMeasureCommand uom;
+
+    @NotNull
     private Long recipeId;
 
     public boolean isNotEmpty() {
         return description != null && description != ""
                 && amount != null
                 && uom != null;
-    }
-
-    @Override
-    public String toString() {
-        return amount + " " + " " + uom.toString() + " " + description;
     }
 }
