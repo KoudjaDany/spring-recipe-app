@@ -12,9 +12,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -69,11 +71,15 @@ public class RecipeController {
     @PutMapping
     @PostMapping
     @RequestMapping("/save")
-    public String saveOrUpdateRecipe(@ModelAttribute RecipeCommand recipeCommand, Model model) {
+    public String saveOrUpdateRecipe(@Valid @ModelAttribute("recipe") RecipeCommand recipeCommand, BindingResult bindingResult, Model model) {
         recipeCommand.setIngredients(ingredients);
+        if (bindingResult.hasErrors()) {
+            bindingResult.getAllErrors().forEach(error -> log.error(error.toString()));
+            model.addAttribute("categories", categoryService.findAll());
+            return "recipe/recipe-form";
+        }
         RecipeCommand savedRecipeCommand = recipeService.saveRecipeCommand(recipeCommand);
         ingredients = Collections.emptySet();
-        model.addAttribute("categories", categoryService.findAll());
         return "redirect:/recipe/details/" + savedRecipeCommand.getId();
     }
 

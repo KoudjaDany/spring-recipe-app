@@ -9,6 +9,7 @@ import com.ddf.training.springrecipeapp.services.UnitOfMeasureService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
@@ -49,7 +50,10 @@ public class IngredientController {
     @PostMapping
     @PutMapping
     @RequestMapping("/save")
-    public String saveOrUpdateIngredient(@ModelAttribute IngredientCommand ingredientCommand) {
+    public String saveOrUpdateIngredient(@ModelAttribute("ingredient") IngredientCommand ingredientCommand, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "recipe/ingredients/ingredient-form";
+        }
         IngredientCommand savedIngredient = ingredientService.saveIngredientCommand(ingredientCommand);
         return "redirect:/recipe/" + ingredientCommand.getRecipeId() + "/ingredients/details/" + savedIngredient.getId();
     }
@@ -95,7 +99,10 @@ public class IngredientController {
     @PostMapping
     @PutMapping
     @RequestMapping("/add-ingredient")
-    public String addIngredientToRecipe(@ModelAttribute("ingredient") IngredientCommand ingredientCommand) {
+    public String addIngredientToRecipe(@ModelAttribute("ingredient") IngredientCommand ingredientCommand, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "recipe/ingredients/ingredient-form";
+        }
         return "forward:/recipe/new";
     }
 

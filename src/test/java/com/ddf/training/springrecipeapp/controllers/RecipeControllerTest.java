@@ -2,6 +2,7 @@ package com.ddf.training.springrecipeapp.controllers;
 
 import com.ddf.training.springrecipeapp.commands.RecipeCommand;
 import com.ddf.training.springrecipeapp.domain.Recipe;
+import com.ddf.training.springrecipeapp.enums.Difficulty;
 import com.ddf.training.springrecipeapp.exceptions.NotFoundException;
 import com.ddf.training.springrecipeapp.services.CategoryService;
 import com.ddf.training.springrecipeapp.services.RecipeService;
@@ -107,19 +108,48 @@ public class RecipeControllerTest {
         RecipeCommand recipeCommand = new RecipeCommand();
         recipeCommand.setId(1L);
         recipeCommand.setDescription("recipe description");
+        recipeCommand.setDifficulty(Difficulty.EASY);
+        recipeCommand.setDirections("Directions");
+        recipeCommand.setUrl("http://www.recipes.com");
 
 
         when(recipeService.saveRecipeCommand(any())).thenReturn(recipeCommand);
 
-        mockMvc.perform(post("/recipe/save", recipeCommand)
+        mockMvc.perform(post("/recipe/save")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("id", "")
                 .param("description", "recipe description")
+                .param("directions", "Directions")
+                .param("difficulty", "EASY")
+                .param("url", "http://www.recipes.com")
         )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/recipe/details/1"));
 
         verify(recipeService, only()).saveRecipeCommand(any());
+    }
+
+    @Test
+    public void saveRecipeValidationFail() throws Exception {
+        RecipeCommand recipeCommand = new RecipeCommand();
+        recipeCommand.setId(1L);
+        recipeCommand.setDescription("recipe description");
+        recipeCommand.setDifficulty(Difficulty.EASY);
+        recipeCommand.setDirections("Directions");
+        recipeCommand.setUrl("http://www.recipes.com");
+
+        when(recipeService.saveRecipeCommand(any())).thenReturn(recipeCommand);
+
+        mockMvc.perform(post("/recipe/save")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("id", "")
+                .param("description", "recipe description")
+        )
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("recipe"))
+                .andExpect(model().attributeExists("errors"))
+                .andExpect(view().name("recipe/recipe-form"));
+        verifyNoInteractions(recipeService);
     }
 
     @Test

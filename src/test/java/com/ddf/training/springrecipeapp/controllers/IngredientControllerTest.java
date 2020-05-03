@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -20,6 +21,7 @@ import java.util.Set;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class IngredientControllerTest {
@@ -37,11 +39,16 @@ public class IngredientControllerTest {
     @Mock
     private UnitOfMeasureService unitOfMeasureService;
 
+    UnitOfMeasureCommand uom;
+
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         ingredientController = new IngredientController(recipeService, ingredientService, unitOfMeasureService);
         mockMvc = MockMvcBuilders.standaloneSetup(ingredientController).build();
+        uom = new UnitOfMeasureCommand();
+        uom.setName("unit");
+        uom.setId(1L);
     }
 
     @Test
@@ -64,6 +71,7 @@ public class IngredientControllerTest {
     public void showIngredient() throws Exception {
         //Given
         IngredientCommand ingredientCommand = new IngredientCommand();
+        ingredientCommand.setUom(uom);
         when(ingredientService.findRecipeIdAndIngredientById(anyLong(), anyLong())).thenReturn(ingredientCommand);
 
         //When
@@ -78,13 +86,23 @@ public class IngredientControllerTest {
     @Test
     public void saveOrUpdateIngredient() throws Exception {
         //Given
+        IngredientCommand ingredientCommandToSave = new IngredientCommand();
+        ingredientCommandToSave.setDescription("My Description");
+        ingredientCommandToSave.setAmount(BigDecimal.valueOf(1));
+        ingredientCommandToSave.setUom(uom);
+        ingredientCommandToSave.setRecipeId(1L);
+
         IngredientCommand ingredientCommand = new IngredientCommand();
         ingredientCommand.setDescription("My Description");
         ingredientCommand.setId(1L);
+        ingredientCommand.setAmount(BigDecimal.valueOf(1));
+        ingredientCommand.setUom(uom);
+        ingredientCommand.setRecipeId(1L);
 
         when(ingredientService.saveIngredientCommand(any())).thenReturn(ingredientCommand);
         //When
-        mockMvc.perform(get("/recipe/1/ingredients/save"))
+        mockMvc.perform(post("/recipe/1/ingredients/save")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/recipe/1/ingredients/details/1"))
         ;
