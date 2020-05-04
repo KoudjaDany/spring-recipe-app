@@ -7,7 +7,7 @@ import lombok.Setter;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 
 @Getter
@@ -20,7 +20,7 @@ public class IngredientCommand {
     private String description;
 
     @NotNull
-    @PositiveOrZero
+    @Positive
     private BigDecimal amount;
 
     @Valid

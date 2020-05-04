@@ -52,7 +52,11 @@ public class RecipeController {
         if (Objects.nonNull(ingredientCommand) && ingredientCommand.isNotEmpty()) {
             ingredients.add(ingredientCommand);
         }
+        if (bindingResult.hasErrors()) {
+            bindingResult.getAllErrors().forEach(error -> log.error(error.toString()));
+        }
         recipe.setIngredients(ingredients);
+        model.addAttribute("categories", categoryService.findAll());
         model.addAttribute("difficulties", Difficulty.values());
         return "recipe/recipe-form";
     }

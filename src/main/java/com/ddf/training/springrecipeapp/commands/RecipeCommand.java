@@ -41,6 +41,7 @@ public class RecipeCommand {
     private String source;
 
     @URL
+    @NotNull
     private String url;
 
     @NotBlank
