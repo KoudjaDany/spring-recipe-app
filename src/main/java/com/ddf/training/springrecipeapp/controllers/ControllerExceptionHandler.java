@@ -17,7 +17,6 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(NotFoundException.class)
     public ModelAndView handleNotFound(Exception exception) {
         log.error("Handling Not Found Exception.");
-
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("404error");
         modelAndView.addObject("message", exception.getMessage());

@@ -39,13 +39,13 @@
                 </div>
                 <ul class="nav navbar-nav pull-right col-md-6">
                     <li class="active">
-                        <a th:href="@{/index}">Home</a>
+                        <a th:href="@{/index}" th:text="#{general.menu.home}">Home</a>
                     </li>
                     <li>
-                        <a th:href="@{/recipe/new}" href="#">Create Recipes</a>
+                        <a th:href="@{/recipe/new}" href="#" th:text="#{general.menu.create_recipe}">Create Recipes</a>
                     </li>
                     <li>
-                        <a href="#">About</a>
+                        <a href="#" th:text="#{general.menu.about}">About</a>
                     </li>
                 </ul>
             </div>
@@ -54,23 +54,26 @@
     <div class="jumbotron">
         <div class="container text-center">
             <img class="" alt="Brand" th:src="@{'/images/recipe-logo7.png'}"/>
-            <h1>Welcome on Africa's Recipes!</h1>
-            <p>Are you ready to discover the wonderful flavors of African cuisine? </p>
+            <h1 th:text="#{index.welcome}">Welcome on Africa's Recipes!</h1>
+            <p th:text="#{index.welcome.subtitle}">Are you ready to discover the wonderful flavors of African
+                cuisine? </p>
             <p>
                 <a class="btn btn-warning btn-lg" th:href="@{/recipe/new}"><span
-                        class="glyphicon glyphicon-flash"></span> Getting Started...</a>
+                        class="glyphicon glyphicon-flash"></span> <span
+                        th:text="#{index.getStart}">Getting Started...</span></a>
             </p>
         </div>
     </div>
     <main>
         <div class="container-fluid">
             <div class="row">
-                    <h1>List of Recipes</h1>
+                <h1 th:text="#{index.list_of_recipe}">List of Recipes</h1>
                 <div th:each="recipe: ${recipes}" class="media col-md-6">
                     <div class="media-left">
                             <a th:href="@{/recipe/details/{id}(id=${recipe.id})}">
                                 <img th:src="@{'/recipe/'+ ${recipe.id} +'/image/recipe-image'}"
-                                     src="/images/GrilledChickenTacos.jpg"/>
+                                     src="/images/GrilledChickenTacos.jpg" th:alt="${recipe.description}"
+                                     alt="Recipe Image"/>
                             </a>
                         </div>
                         <div class="media-body">
@@ -79,9 +82,12 @@
                             </a>
                             <i><p th:text="${recipe.notes.recipeNotes}" class="text-justify"></p></i>
                             <p class="bottom-properties visible-xs hidden-sm hidden-md hidden-lg">
-                                <span> Prep Time:</span><span th:text="${recipe.prepTime}+' minutes'"></span>
-                                <span> Cook Time:</span><span th:text="${recipe.cookTime}+' minutes'"></span>
-                                <span> Yield:</span><span th:text="'Serves '+ ${recipe.servings}"></span>
+                                <span th:text="#{recipe.prepTime}"> Prep Time:</span><span
+                                    th:text="${recipe.prepTime}+' minutes'"></span>
+                                <span th:text="#{recipe.cookTime}"> Cook Time:</span><span
+                                    th:text="${recipe.cookTime}+' minutes'"></span>
+                                <span th:text="#{recipe.yield}"> Yield:</span><span
+                                    th:text="'Serves '+ ${recipe.servings}"></span>
                             </p>
                         </div>
                     <!--                        <div th:if="${recipe.id % 2 == 0}" class="media-right">-->
@@ -91,9 +97,12 @@
                     <!--                        </div>-->
                         <div class="row">
                             <p class="bottom-properties hidden-xs visible-sm visible-md visible-lg">
-                                <span> Prep Time:</span><span th:text="${recipe.prepTime}+' minutes'"></span>
-                                <span> Cook Time:</span><span th:text="${recipe.cookTime}+' minutes'"></span>
-                                <span> Yield:</span><span th:text="'Serves '+ ${recipe.servings}"></span>
+                                <span th:text="#{recipe.prepTime}"> Prep Time:</span><span
+                                    th:text="${recipe.prepTime}+' minutes'"></span>
+                                <span th:text="#{recipe.cookTime}"> Cook Time:</span><span
+                                    th:text="${recipe.cookTime}+' minutes'"></span>
+                                <span th:text="#{recipe.yield}"> Yield:</span><span
+                                    th:text="'Serves '+ ${recipe.servings}"></span>
                             </p>
                         </div>
                     </div>
@@ -103,7 +112,7 @@
     </main>
     <footer class="my-footer">
         <div class="container-fluid">
-            <p class="center-block text-center">Copyright &copy; DDF 2020</p>
+            <p class="center-block text-center" th:text="#{general.copyright}">Copyright &copy; DDF 2020</p>
         </div>
     </footer>
 </body>
