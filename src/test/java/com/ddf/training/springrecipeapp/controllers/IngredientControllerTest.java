@@ -95,6 +95,35 @@ public class IngredientControllerTest {
         IngredientCommand ingredientCommand = new IngredientCommand();
         ingredientCommand.setDescription("My Description");
         ingredientCommand.setId(1L);
+        ingredientCommand.setAmount(BigDecimal.valueOf(10));
+        ingredientCommand.setUom(uom);
+        ingredientCommand.setRecipeId(1L);
+
+        when(ingredientService.saveIngredientCommand(any())).thenReturn(ingredientCommand);
+
+        //When
+        mockMvc.perform(post("/recipe/1/ingredients/save")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("amount", "15.05")
+                .param("description", "ingredient")
+        )
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/recipe/1/ingredients/details/1"))
+        ;
+        //Then
+        verify(ingredientService, only()).saveIngredientCommand(any());
+    }
+
+    @Test
+    public void saveOrUpdateIngredientFails() throws Exception {
+        //Given
+        IngredientCommand ingredientCommandToSave = new IngredientCommand();
+        ingredientCommandToSave.setAmount(BigDecimal.valueOf(1));
+        ingredientCommandToSave.setUom(uom);
+        ingredientCommandToSave.setRecipeId(1L);
+
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        ingredientCommand.setId(1L);
         ingredientCommand.setAmount(BigDecimal.valueOf(1));
         ingredientCommand.setUom(uom);
         ingredientCommand.setRecipeId(1L);
@@ -103,11 +132,11 @@ public class IngredientControllerTest {
         //When
         mockMvc.perform(post("/recipe/1/ingredients/save")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/recipe/1/ingredients/details/1"))
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(view().name("recipe/ingredients/ingredient-form"))
         ;
         //Then
-        verify(ingredientService, only()).saveIngredientCommand(any());
+        verify(ingredientService, never()).saveIngredientCommand(any());
     }
 
     @Test

@@ -107,6 +107,9 @@ public class RecipeControllerTest {
     public void saveRecipe() throws Exception {
         RecipeCommand recipeCommand = new RecipeCommand();
         recipeCommand.setId(1L);
+        recipeCommand.setServings(4);
+        recipeCommand.setPrepTime(45);
+        recipeCommand.setCookTime(100);
         recipeCommand.setDescription("recipe description");
         recipeCommand.setDifficulty(Difficulty.EASY);
         recipeCommand.setDirections("Directions");
@@ -118,7 +121,10 @@ public class RecipeControllerTest {
         mockMvc.perform(post("/recipe/save")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("id", "")
+                .param("prepTime", "45")
+                .param("cookTime", "100")
                 .param("description", "recipe description")
+                .param("servings", "4")
                 .param("directions", "Directions")
                 .param("difficulty", "EASY")
                 .param("url", "http://www.recipes.com")
@@ -149,7 +155,6 @@ public class RecipeControllerTest {
                 .andExpect(model().attributeExists("recipe"))
                 .andExpect(model().attributeExists("difficulties"))
                 .andExpect(model().attributeExists("categories"))
-                .andExpect(model().attributeExists("errors"))
                 .andExpect(view().name("recipe/recipe-form"));
         verifyNoInteractions(recipeService);
 
