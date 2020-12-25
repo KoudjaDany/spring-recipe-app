@@ -67,7 +67,7 @@
     <main>
         <div class="container-fluid">
             <div class="row">
-                <h1 th:text="#{index.list_of_recipe}">List of Recipes</h1>
+                <h2 th:text="#{index.list_of_recipe}">List of Recipes</h2>
                 <div th:each="recipe: ${recipes}" class="media col-md-6">
                     <div class="media-left">
                             <a th:href="@{/recipe/details/{id}(id=${recipe.id})}">
@@ -78,14 +78,23 @@
                         </div>
                         <div class="media-body">
                             <a th:href="@{/recipe/details/{id}(id=${recipe.id})}">
-                                <h3 class="media-heading" th:text="${recipe.description}"></h3>
+                                <h4 class="media-heading" th:text="${recipe.description}"></h4>
                             </a>
                             <i><p th:text="${recipe.notes.recipeNotes}" class="text-justify"></p></i>
                             <p class="bottom-properties visible-xs hidden-sm hidden-md hidden-lg">
                                 <span th:text="#{recipe.prepTime}"> Prep Time:</span><span
-                                    th:text="${recipe.prepTime}+' minutes'"></span>
+                                    th:text="${recipe.prepTime}+' minutes'"></span><br>
                                 <span th:text="#{recipe.cookTime}"> Cook Time:</span><span
-                                    th:text="${recipe.cookTime}+' minutes'"></span>
+                                    th:text="${recipe.cookTime}+' minutes'"></span><br>
+                                <span th:text="#{recipe.yield}"> Yield:</span><span
+                                    th:text="'Serves '+ ${recipe.servings}"></span>
+                            </p>
+
+                            <p class="bottom-properties hidden-xs visible-sm visible-md visible-lg">
+                                <span th:text="#{recipe.prepTime}"> Prep Time:</span><span
+                                    th:text="${recipe.prepTime}+' minutes'"></span><br>
+                                <span th:text="#{recipe.cookTime}"> Cook Time:</span><span
+                                    th:text="${recipe.cookTime}+' minutes'"></span><br>
                                 <span th:text="#{recipe.yield}"> Yield:</span><span
                                     th:text="'Serves '+ ${recipe.servings}"></span>
                             </p>
@@ -95,17 +104,8 @@
                     <!--                                <img th:src="@{'/recipe/'+ ${recipe.id} +'/image/recipe-image'}"/>-->
                     <!--                            </a>-->
                     <!--                        </div>-->
-                        <div class="row">
-                            <p class="bottom-properties hidden-xs visible-sm visible-md visible-lg">
-                                <span th:text="#{recipe.prepTime}"> Prep Time:</span><span
-                                    th:text="${recipe.prepTime}+' minutes'"></span>
-                                <span th:text="#{recipe.cookTime}"> Cook Time:</span><span
-                                    th:text="${recipe.cookTime}+' minutes'"></span>
-                                <span th:text="#{recipe.yield}"> Yield:</span><span
-                                    th:text="'Serves '+ ${recipe.servings}"></span>
-                            </p>
-                        </div>
-                    </div>
+
+                </div>
             </div>
 
         </div>
