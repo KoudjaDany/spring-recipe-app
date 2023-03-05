@@ -230,5 +230,26 @@ public class RecipeBootsrap implements ApplicationListener<ContextRefreshedEvent
 
         recipeRepository.save(perfectGuacamole);
         //log.debug("Perfect Guacamole recipe : ", perfectGuacamole);
+
+        /**
+         *
+         * Pilé Pommes
+         * Les Recettes de Grand Mère Camerounaise
+         * https://kelianfood.com/pile-de-pommes-de-terre/
+         *
+         *
+         * 1- Laver puis laisser trempé le haricot quelques minutes
+         * 2- Mettre le haricot au feu pour 45min
+         * 3- Peler les pommes puis les laver et les mariner avec du sel pour en extraire l'eau
+         * 4- Rajouter le haricot dans la marmite de pommes au feu; laisser cuire les deux
+         * 5- Lorsque les pommes sont cuites et l'eau a séché dans la marmite, faire descendre la marmite du feu, puis piler correctement les pommes et le haricot
+         * 6- Rajouter les oignons fris avec leur huile de friture, puis tourner et continuer à piler
+         * 7- Rajouter du sel et le piment écrasé à votre convenance et tourner le tout
+         * 8- Rajouter le reste d'huile rouge à votre convenance et tourner en pilant le tout
+         * 9- Servir et c'est prêt.
+         *
+         *
+         * On peut  aussi rajouter des crevettes si l'on veut donner une saveur plus forte à notre plat.
+         */
     }
 }
