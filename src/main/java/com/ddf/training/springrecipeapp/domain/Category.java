@@ -1,23 +1,25 @@
 package com.ddf.training.springrecipeapp.domain;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToMany;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
-@EqualsAndHashCode(exclude = {"recipes"})
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
-public class Category {
+public class Category extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String categoryName;
 
     @ManyToMany(mappedBy = "categories")
+    @ToString.Exclude
     private Set<Recipe> recipes = new HashSet<>();
 
     public String toString() {

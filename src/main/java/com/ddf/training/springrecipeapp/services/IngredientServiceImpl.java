@@ -5,11 +5,10 @@ import com.ddf.training.springrecipeapp.converters.IngredientCommandToIngredient
 import com.ddf.training.springrecipeapp.converters.IngredientToIngredientCommand;
 import com.ddf.training.springrecipeapp.domain.Ingredient;
 import com.ddf.training.springrecipeapp.repositories.IngredientRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityNotFoundException;
 
 @Slf4j
 @Service

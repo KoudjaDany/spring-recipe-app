@@ -1,21 +1,21 @@
 package com.ddf.training.springrecipeapp.domain;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Data
-@EqualsAndHashCode(exclude = {"recipe"})
 @ToString(exclude = {"recipe"})
 @Entity
-public class Ingredient {
+public class Ingredient extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+
     private String description;
     private BigDecimal amount;
 

@@ -1,7 +1,8 @@
 package com.ddf.training.springrecipeapp.utils;
 
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;

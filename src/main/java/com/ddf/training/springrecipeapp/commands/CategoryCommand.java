@@ -1,10 +1,10 @@
 package com.ddf.training.springrecipeapp.commands;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
 import java.util.Set;
 

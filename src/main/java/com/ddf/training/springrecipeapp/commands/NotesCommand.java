@@ -1,11 +1,10 @@
 package com.ddf.training.springrecipeapp.commands;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter

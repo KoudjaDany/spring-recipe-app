@@ -1,20 +1,17 @@
 package com.ddf.training.springrecipeapp.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Lob;
+import jakarta.persistence.OneToOne;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import javax.persistence.*;
-
 @Data
-@EqualsAndHashCode(exclude = {"recipe"})
 @ToString(exclude = {"recipe"})
 @Entity
-public class Notes {
+public class Notes extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+
     @OneToOne
     private Recipe recipe;
 
